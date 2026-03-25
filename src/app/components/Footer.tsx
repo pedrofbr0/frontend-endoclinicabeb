@@ -155,7 +155,10 @@ export function Footer() {
               <ul className="space-y-3 text-white/80 text-sm">
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-[#C9A962]" />
-                  <a href={`https://wa.me/55${telefoneLimpo}?text=${encodeURIComponent(message)}`} className="hover:text-[#C9A962] transition-colors">
+                  <a href={`https://wa.me/55${telefoneLimpo}?text=${encodeURIComponent(message)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#C9A962] transition-colors">
                     {contactData.telefone}
                   </a>
                 </li>

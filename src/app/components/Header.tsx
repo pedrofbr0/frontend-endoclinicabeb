@@ -88,7 +88,10 @@ export function Header() {
             </div>
           ) : (
             <>
-              <a href={`https://wa.me/55${telefone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`} className="flex items-center gap-2 hover:text-[#C9A962] transition-colors">
+              <a href={`https://wa.me/55${telefone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`} 
+                target="_blank"
+                rel="noopener noreferrer" 
+                className="flex items-center gap-2 hover:text-[#C9A962] transition-colors">
                 <Phone className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">{telefone}</span>
               </a>

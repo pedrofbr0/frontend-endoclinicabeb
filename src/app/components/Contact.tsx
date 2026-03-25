@@ -48,7 +48,7 @@ export function Contact() {
   };
 
   const message = 'Olá! Gostaria de agendar uma avaliação personalizada.';
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const numeroWhatsApp = `55${whatsappNumber}`;
@@ -85,9 +85,9 @@ ${formData.mensagem}`;
             <h3 className="text-2xl font-serif font-bold text-[#1A3A52] mb-8">
               Informações de Contato
             </h3>
-            
+
             <div className="space-y-6">
-              
+
               {/* Endereço Dinâmico */}
               {(contactData?.logradouro || contactData?.numero || contactData?.bairro || contactData?.cidade || contactData?.estado || contactData?.cep) && (
                 <div className="flex items-start gap-4">
@@ -114,7 +114,10 @@ ${formData.mensagem}`;
                   <div>
                     <h4 className="font-semibold text-[#1A3A52] mb-2">Telefone e WhatsApp</h4>
                     <p className="text-[#6B7280]">
-                      <a href={`https://wa.me/55${whatsappNumber}?text=${encodeURIComponent(message)}`} className="hover:text-[#C9A962] transition-colors block">
+                      <a href={`https://wa.me/55${whatsappNumber}?text=${encodeURIComponent(message)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-[#C9A962] transition-colors block">
                         {contactData.telefone}
                       </a>
                     </p>
@@ -174,7 +177,7 @@ ${formData.mensagem}`;
               <h3 className="text-2xl font-serif font-bold text-[#1A3A52] mb-6">
                 Envie uma Mensagem
               </h3>
-              
+
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <label htmlFor="name" className="block text-[#1A3A52] font-semibold mb-2 text-sm">Nome Completo</label>
