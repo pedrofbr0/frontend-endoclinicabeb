@@ -1,6 +1,52 @@
 import { MapPin, Phone, Instagram, Facebook, Linkedin, Clock } from 'lucide-react';
+import { client } from '../../lib/sanity';
+import { useState, useEffect } from 'react';
 
 export function Contact() {
+  const [whatsappNumber, setWhatsappNumber] = useState(null);
+
+  useEffect(() => {
+    client.fetch('*[_type == "contato"][0]').then((data) => {
+      if (data?.telefone) {
+        const cleanedNumber = data.telefone.replace(/\D/g, '');
+        setWhatsappNumber(cleanedNumber);
+      }
+    });
+  }, []);
+
+  const [formData, setFormData] = useState({
+    nome: '',
+    email: '',
+    telefone: '',
+    mensagem: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault(); // Impede a página de recarregar
+
+    // O número da clínica (apenas números, com DDI 55)
+    const numeroWhatsApp = `55${whatsappNumber}`;
+
+    // Montamos o texto usando formatação do WhatsApp (* para negrito)
+    const textoMensagem = `Olá, vim pelo site! Meu nome é *${formData.nome}*.
+
+*E-mail:* ${formData.email}
+*Telefone:* ${formData.telefone}
+
+*Mensagem:*
+${formData.mensagem}`;
+
+  const textoCodificado = encodeURIComponent(textoMensagem);
+  const url = `https://wa.me/${numeroWhatsApp}?text=${textoCodificado}`;
+  window.open(url, '_blank');
+
+  };
+
   return (
     <section id="contato" className="py-20 md:py-28 bg-white">
       <div className="container mx-auto px-4">
@@ -101,13 +147,17 @@ export function Contact() {
                 Envie uma Mensagem
               </h3>
               
-              <form className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <label htmlFor="name" className="block text-[#1A3A52] font-semibold mb-2 text-sm">
                     Nome Completo
                   </label>
                   <input
                     type="text"
+                    name="nome"
+                    value={formData.nome}
+                    onChange={handleChange}
+                    required
                     id="name"
                     className="w-full px-4 py-3.5 bg-white border border-[rgba(26,58,82,0.1)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A962] focus:border-transparent transition-all"
                     placeholder="Seu nome completo"
@@ -120,6 +170,10 @@ export function Contact() {
                   </label>
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
                     id="email"
                     className="w-full px-4 py-3.5 bg-white border border-[rgba(26,58,82,0.1)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A962] focus:border-transparent transition-all"
                     placeholder="seu@email.com"
@@ -132,6 +186,10 @@ export function Contact() {
                   </label>
                   <input
                     type="tel"
+                    name="telefone"
+                    value={formData.telefone}
+                    onChange={handleChange}
+                    required
                     id="phone"
                     className="w-full px-4 py-3.5 bg-white border border-[rgba(26,58,82,0.1)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A962] focus:border-transparent transition-all"
                     placeholder="(11) 99999-9999"
@@ -144,6 +202,10 @@ export function Contact() {
                   </label>
                   <textarea
                     id="message"
+                    name="mensagem"
+                    value={formData.mensagem}
+                    onChange={handleChange}
+                    required
                     rows={4}
                     className="w-full px-4 py-3.5 bg-white border border-[rgba(26,58,82,0.1)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A962] focus:border-transparent transition-all resize-none"
                     placeholder="Como podemos ajudá-lo?"
