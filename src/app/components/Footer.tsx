@@ -71,7 +71,7 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               {logoUrl && (
-                <img src={logoUrl} alt="Logo" className="h-8 md:h-10 w-auto invert brightness-0" />
+                <img src={logoUrl} alt="Logo" className="h-4 md:h-6 w-auto invert brightness-0" />
               )}
               <h3 className="text-2xl md:text-3xl font-serif font-bold">
                 <span className="text-[#C9A962]">Endo</span><span className="text-white">Clínica</span> <span className="text-[#C9A962]">B&B</span>
