@@ -35,7 +35,7 @@ export function Header() {
       .finally(() => setIsLoading(false));
   }, []);
 
-const handleNavClick = (id: string) => {
+  const handleNavClick = (id: string) => {
     setIsMenuOpen(false); // Fecha o menu mobile, se estiver aberto
 
     // 1. REGRA ESPECIAL SÓ PARA O BOTÃO DO BLOG
@@ -105,22 +105,29 @@ const handleNavClick = (id: string) => {
         <div className="flex items-center justify-between">
 
           <div className="flex items-center">
-            {/* Adicionei um gap-3 para dar um espaço entre o ícone e o texto */}
             <button onClick={() => handleNavClick('home')} className="cursor-pointer text-left flex items-center gap-3">
 
-              {/* Se a logo existir, desenha ela */}
-              {logoUrl && (
-                <img
-                  src={logoUrl}
-                  alt="EndoClínica B&B Logo"
-                  className="h-4 md:h-6 w-auto object-contain" // Diminuí um pouquinho para ficar proporcional ao texto
-                />
+              {isLoading ? (
+                // 1. Skeleton: Aparece enquanto o Sanity busca os dados
+                <>
+                  <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-200 rounded-full animate-pulse"></div>
+                  <div className="w-48 h-8 bg-gray-200 rounded animate-pulse hidden sm:block"></div>
+                </>
+              ) : (
+                // 2. Conteúdo Real: Aparecem os dois perfeitamente sincronizados
+                <>
+                  {logoUrl && (
+                    <img
+                      src={logoUrl}
+                      alt="EndoClínica B&B Logo"
+                      className="h-8 md:h-10 w-auto object-contain"
+                    />
+                  )}
+                  <span className="text-2xl md:text-3xl font-serif font-bold">
+                    <span className="text-[#C9A962]">Endo</span><span className="text-[#1A3A52]">Clínica</span> <span className="text-[#C9A962]">B&B</span>
+                  </span>
+                </>
               )}
-
-              {/* O texto aparece sempre, ao lado do ícone */}
-              <span className="text-2xl md:text-3xl font-serif font-bold">
-                <span className="text-[#C9A962]">Endo</span><span className="text-[#1A3A52]">Clínica</span> <span className="text-[#C9A962]">B&B</span>
-              </span>
 
             </button>
           </div>
