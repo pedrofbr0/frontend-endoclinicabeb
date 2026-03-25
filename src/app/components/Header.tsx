@@ -35,17 +35,44 @@ export function Header() {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const handleNavClick = (id: string) => {
-    setIsMenuOpen(false);
+const handleNavClick = (id: string) => {
+    setIsMenuOpen(false); // Fecha o menu mobile, se estiver aberto
+
+    // 1. REGRA ESPECIAL SÓ PARA O BOTÃO DO BLOG
+    if (id === 'blog') {
+      if (location.pathname.startsWith('/blog')) {
+        // Se já estamos dentro da área do blog...
+        if (location.pathname === '/blog') {
+          // Se já está na lista, só rola pro topo
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          // Se está lendo um artigo, volta para a lista
+          navigate('/blog');
+        }
+      } else {
+        // Se estamos na Home, rola até a seção de destaques
+        const element = document.getElementById('blog');
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
+      }
+      return; // Encerra a função aqui para o botão do blog não rodar o código de baixo
+    }
+
+    // 2. REGRA NORMAL PARA OS OUTROS BOTÕES (Início, Equipe, Contato, etc)
     if (location.pathname === '/') {
-      if (id === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
-      else {
+      // Se já está na Home, só faz o scroll
+      if (id === 'home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
         const element = document.getElementById(id);
         if (element) element.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      if (id === 'home') navigate('/');
-      else navigate(`/#${id}`);
+      // Se está no Blog e clica em "Equipe" ou "Contato", volta pra Home ancorado na seção certa
+      if (id === 'home') {
+        navigate('/');
+      } else {
+        navigate(`/#${id}`);
+      }
     }
   };
 
