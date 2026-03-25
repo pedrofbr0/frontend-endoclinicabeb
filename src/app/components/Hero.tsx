@@ -85,7 +85,7 @@ export function Hero() {
               {heroImage && (
                 <img
                   src={`${heroImage}?w=1200&auto=format&q=75`}
-                  className="w-full h-auto"
+                  className="w-full h-[500px] md:h-[600px] lg:h-[750px] object-cover object-center"
                   alt="Dr. Rui Barbosa e Dr. Yuri Bittencourt - Médicos endocrinologistas da EndoClínica B&B"
                 />
               )}

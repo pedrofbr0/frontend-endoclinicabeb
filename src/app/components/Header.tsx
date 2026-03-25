@@ -7,6 +7,7 @@ export function Header() {
   const [telefone, setTelefone] = useState('(34) 98447-7953');
   const [email, setEmail] = useState(''); // Mudei para string vazia para evitar erro de tipo
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hasBlogPosts, setHasBlogPosts] = useState(false);
 
   // Ferramentas do React Router para navegação programada
   const navigate = useNavigate();
@@ -16,7 +17,11 @@ export function Header() {
     client.fetch('*[_type == "contato"][0]').then((dados) => {
       if (dados && dados.telefone) setTelefone(dados.telefone);
       if (dados && dados.email) setEmail(dados.email);
-    }).catch(console.error); // Adicionei um catch por segurança
+    }).catch(console.error);
+
+    client.fetch('count(*[_type == "post"])').then((count) => {
+      setHasBlogPosts(count > 0); // Se for maior que 0, vira 'true'
+    }).catch(console.error);
   }, []);
 
   // Nova função de navegação/scroll
@@ -83,9 +88,11 @@ export function Header() {
               Equipe
             </button>
             {/* Dica: Adicionei o link para o Blog no menu! */}
-            <button onClick={() => handleNavClick('blog')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium">
-              Blog
-            </button>
+            {hasBlogPosts && (
+              <button onClick={() => handleNavClick('blog')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium">
+                Blog
+              </button>
+            )}
             <button onClick={() => handleNavClick('contato')} className="bg-[#C9A962] text-[#1A3A52] px-6 py-2.5 rounded-xl hover:bg-[#A08847] transition-all shadow-md hover:shadow-lg font-semibold min-h-[44px]">
               Agendar Avaliação
             </button>
@@ -111,9 +118,11 @@ export function Header() {
             <button onClick={() => handleNavClick('equipe')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium">
               Equipe
             </button>
-            <button onClick={() => handleNavClick('blog')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium">
-              Blog
-            </button>
+            {hasBlogPosts && (
+              <button onClick={() => handleNavClick('blog')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium">
+                Blog
+              </button>
+            )}
             <button onClick={() => handleNavClick('contato')} className="bg-[#C9A962] text-[#1A3A52] px-6 py-3 rounded-xl hover:bg-[#A08847] transition-all text-center font-semibold min-h-[44px]">
               Agendar Avaliação
             </button>
