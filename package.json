@@ -1,5 +1,5 @@
 {
-  "name": "@figma/my-make-file",
+  "name": "endoclinicabeb-frontend",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -90,7 +90,7 @@
       "vite": "6.3.5"
     }
   },
-  "description": "This is a code bundle for Landing page para médicos. The original project is available at https://www.figma.com/design/OMz0buNFShOEgVEna9jbWM/Landing-page-para-m%C3%A9dicos.",
+  "description": "Landing page for EndoClínica B&B",
   "main": "index.js",
   "keywords": [],
   "author": "",
