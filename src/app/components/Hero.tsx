@@ -8,6 +8,7 @@ export function Hero() {
 
   useEffect(() => {
     client.fetch(`*[_type == "imagens"][0]{"url": heroImage.asset->url}`).then((dados) => {
+      console.log('Dados do Sanity para a imagem do Hero:', dados);
       if (dados?.url) {
         setImageHero(dados.url);
       }

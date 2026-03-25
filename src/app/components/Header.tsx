@@ -8,62 +8,56 @@ export function Header() {
   const [email, setEmail] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasBlogPosts, setHasBlogPosts] = useState(false);
-  
-  // NOVO: Estado para controlar o esqueleto de carregamento
+
+  // 1. NOVO ESTADO: Para guardar a URL da logo
+  const [logoUrl, setLogoUrl] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    // Promise.all executa as duas buscas ao mesmo tempo e espera ambas terminarem
     Promise.all([
       client.fetch('*[_type == "contato"][0]'),
-      client.fetch('count(*[_type == "post"])')
+      client.fetch('count(*[_type == "post"])'),
+      // 2. NOVA BUSCA: Traz a URL da logo usando o nome do seu schema (se for 'imagens', troque aqui)
+      client.fetch('*[_type == "configuracoesSite"][0]{"url": logo.asset->url}')
     ])
-    .then(([dadosContato, countBlog]) => {
-      if (dadosContato?.telefone) setTelefone(dadosContato.telefone);
-      if (dadosContato?.email) setEmail(dadosContato.email);
-      setHasBlogPosts(countBlog > 0);
-    })
-    .catch(console.error)
-    .finally(() => {
-      // Independente de dar erro ou sucesso, tira o estado de carregamento
-      setIsLoading(false);
-    });
+      .then(([dadosContato, countBlog, configSite]) => {
+        if (dadosContato?.telefone) setTelefone(dadosContato.telefone);
+        if (dadosContato?.email) setEmail(dadosContato.email);
+        setHasBlogPosts(countBlog > 0);
+
+        // 3. Salva a logo se ela existir
+        if (configSite?.url) setLogoUrl(configSite.url);
+      })
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
   }, []);
 
   const handleNavClick = (id: string) => {
     setIsMenuOpen(false);
     if (location.pathname === '/') {
-      if (id === 'home') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
+      if (id === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
+      else {
         const element = document.getElementById(id);
         if (element) element.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      if (id === 'home') {
-        navigate('/');
-      } else {
-        navigate(`/#${id}`);
-      }
+      if (id === 'home') navigate('/');
+      else navigate(`/#${id}`);
     }
   };
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-[#FAFAF8]/95 backdrop-blur-md shadow-sm z-50 border-b border-[rgba(26,58,82,0.08)]">
-      {/* Barra superior (Contatos) */}
       <div className="bg-[#1A3A52] text-white py-2.5 min-h-[40px]">
         <div className="container mx-auto px-4 flex justify-end gap-6 text-sm">
           {isLoading ? (
-            // Skeleton dos contatos (Barrinhas pulsantes simulando o texto)
             <div className="flex items-center gap-4">
               <div className="w-32 h-4 bg-white/20 rounded animate-pulse"></div>
-              <div className="hidden md:block w-40 h-4 bg-white/20 rounded animate-pulse"></div>
             </div>
           ) : (
-            // Contatos reais
             <>
               <a href={`tel:+55${telefone.replace(/[^0-9]/g, '')}`} className="flex items-center gap-2 hover:text-[#C9A962] transition-colors">
                 <Phone className="w-3.5 h-3.5" />
@@ -79,40 +73,45 @@ export function Header() {
           )}
         </div>
       </div>
-      
-      {/* Navegação Principal */}
+
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* A Logo carrega instantaneamente */}
+
           <div className="flex items-center">
-            <button onClick={() => handleNavClick('home')} className="text-2xl md:text-3xl font-serif font-bold cursor-pointer text-left">
-              <span className="text-[#C9A962]">Endo</span><span className="text-[#1A3A52]">Clínica</span> <span className="text-[#C9A962]">B&B</span>
+            {/* Adicionei um gap-3 para dar um espaço entre o ícone e o texto */}
+            <button onClick={() => handleNavClick('home')} className="cursor-pointer text-left flex items-center gap-3">
+
+              {/* Se a logo existir, desenha ela */}
+              {logoUrl && (
+                <img
+                  src={logoUrl}
+                  alt="EndoClínica B&B Logo"
+                  className="h-4 md:h-6 w-auto object-contain" // Diminuí um pouquinho para ficar proporcional ao texto
+                />
+              )}
+
+              {/* O texto aparece sempre, ao lado do ícone */}
+              <span className="text-2xl md:text-3xl font-serif font-bold">
+                <span className="text-[#C9A962]">Endo</span><span className="text-[#1A3A52]">Clínica</span> <span className="text-[#C9A962]">B&B</span>
+              </span>
+
             </button>
           </div>
-          
+
           <nav className="hidden lg:flex items-center gap-8">
             {isLoading ? (
-              // Skeleton do Menu
               <div className="flex items-center gap-8">
-                <div className="w-12 h-4 bg-gray-200 rounded animate-pulse"></div>
-                <div className="w-24 h-4 bg-gray-200 rounded animate-pulse"></div>
-                <div className="w-28 h-4 bg-gray-200 rounded animate-pulse"></div>
-                <div className="w-16 h-4 bg-gray-200 rounded animate-pulse"></div>
-                {/* Skeleton do botão principal */}
                 <div className="w-44 h-11 bg-gray-200 rounded-xl animate-pulse"></div>
               </div>
             ) : (
-              // Menu real
               <>
                 <button onClick={() => handleNavClick('home')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium">Início</button>
                 <button onClick={() => handleNavClick('diferenciais')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium">Diferenciais</button>
                 <button onClick={() => handleNavClick('especialidades')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium">Especialidades</button>
                 <button onClick={() => handleNavClick('equipe')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium">Equipe</button>
-                
                 {hasBlogPosts && (
                   <button onClick={() => handleNavClick('blog')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium">Blog</button>
                 )}
-                
                 <button onClick={() => handleNavClick('contato')} className="bg-[#C9A962] text-[#1A3A52] px-6 py-2.5 rounded-xl hover:bg-[#A08847] transition-all shadow-md hover:shadow-lg font-semibold min-h-[44px]">
                   Agendar Avaliação
                 </button>
@@ -125,18 +124,16 @@ export function Header() {
           </button>
         </div>
 
-        {/* Menu Mobile */}
+        {/* ... (Seu menu mobile continua igual) ... */}
         {isMenuOpen && !isLoading && (
           <nav className="lg:hidden mt-6 pb-4 flex flex-col gap-4 border-t border-[rgba(26,58,82,0.08)] pt-4">
             <button onClick={() => handleNavClick('home')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium">Início</button>
             <button onClick={() => handleNavClick('diferenciais')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium">Diferenciais</button>
             <button onClick={() => handleNavClick('especialidades')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium">Especialidades</button>
             <button onClick={() => handleNavClick('equipe')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium">Equipe</button>
-            
             {hasBlogPosts && (
               <button onClick={() => handleNavClick('blog')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium">Blog</button>
             )}
-            
             <button onClick={() => handleNavClick('contato')} className="bg-[#C9A962] text-[#1A3A52] px-6 py-3 rounded-xl hover:bg-[#A08847] transition-all text-center font-semibold min-h-[44px]">
               Agendar Avaliação
             </button>
