@@ -60,20 +60,38 @@ export function Hero() {
               </button>
             </div>
 
-            <div className="mt-12 grid grid-cols-3 gap-6">
+<div className="mt-12 grid grid-cols-3 gap-3 sm:gap-6">
+              {/* Bloco 1: Dedicação */}
               <div className="text-center">
-                <div className="text-3xl font-serif font-bold text-[#C9A962] mb-1">+15</div>
-                <p className="text-sm text-[#6B7280]">Anos de Experiência</p>
+                <div className="text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-[#C9A962] mb-1">
+                  100%
+                </div>
+                <p className="text-[10px] sm:text-xs md:text-sm text-[#6B7280] font-medium uppercase tracking-wider">
+                  Foco no Paciente
+                </p>
               </div>
-              <div className="text-center border-x border-[rgba(26,58,82,0.1)]">
-                <div className="text-3xl font-serif font-bold text-[#C9A962] mb-1">+8k</div>
-                <p className="text-sm text-[#6B7280]">Pacientes Atendidos</p>
+              
+              {/* Bloco 2: Nível do Serviço */}
+              <div className="text-center border-x border-[rgba(26,58,82,0.1)] px-2">
+                <div className="text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-[#C9A962] mb-1">
+                  Alto Padrão
+                </div>
+                <p className="text-[10px] sm:text-xs md:text-sm text-[#6B7280] font-medium uppercase tracking-wider">
+                  Clínico e Científico
+                </p>
               </div>
+              
+              {/* Bloco 3: O grande diferencial deles (As duas residências) */}
               <div className="text-center">
-                <div className="text-3xl font-serif font-bold text-[#C9A962] mb-1">100%</div>
-                <p className="text-sm text-[#6B7280]">Dedicação</p>
+                <div className="text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-[#C9A962] mb-1">
+                  Formação
+                </div>
+                <p className="text-[10px] sm:text-xs md:text-sm text-[#6B7280] font-medium uppercase tracking-wider">
+                  de Excelência
+                </p>
               </div>
             </div>
+
           </div>
           <div className="order-1 lg:order-2">
             <div className="rounded-2xl overflow-hidden shadow-2xl relative">
