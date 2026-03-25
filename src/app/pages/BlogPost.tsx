@@ -2,24 +2,29 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { client } from '../../lib/sanity';
 import { PortableText } from '@portabletext/react';
+import imageUrlBuilder from '@sanity/image-url';
+
+// Construtor para transformar os blocos de imagem em URLs
+const builder = imageUrlBuilder(client);
+function urlFor(source: any) {
+  return builder.image(source);
+}
 
 export function BlogPost() {
-  // Pega o "slug" (o pedaço final da URL)
   const { slug } = useParams();
   const [post, setPost] = useState<any>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Trazemos tudo, incluindo a URL da capa
+    const query = `*[_type == "post" && slug.current == "${slug}"][0]{
+      ...,
+      "imagemCapaUrl": imagemCapa.asset->url
+    }`;
     
-    // Busca APENAS o post que tem o slug igual ao da URL
-    const query = `*[_type == "post" && slug.current == "${slug}"][0]`;
-    
-    client.fetch(query).then((data) => {
-      setPost(data);
-    }).catch(console.error);
+    client.fetch(query).then(setPost).catch(console.error);
   }, [slug]);
 
-  // Se ainda estiver carregando a API, mostra essa tela
   if (!post) {
     return (
       <div className="pt-40 pb-20 min-h-screen flex justify-center items-center">
@@ -28,8 +33,22 @@ export function BlogPost() {
     );
   }
 
-  // Dicionário de estilos para traduzir o texto rico do Sanity em Tailwind
+  // Ensinando o Tailwind a formatar os elementos visuais do texto rico!
   const myPortableTextComponents = {
+    // TIPOS NOVOS (Imagens no meio do texto)
+    types: {
+      image: ({ value }: any) => {
+        if (!value?.asset?._ref) return null;
+        return (
+          <img
+            alt={value.alt || 'Imagem do artigo'}
+            loading="lazy"
+            src={urlFor(value).auto('format').url()}
+            className="rounded-xl shadow-md my-10 mx-auto max-h-[500px] object-cover"
+          />
+        );
+      },
+    },
     block: {
       normal: ({children}: any) => <p className="mb-6 text-lg text-[#4B5563] leading-relaxed">{children}</p>,
       h1: ({children}: any) => <h1 className="text-4xl font-serif font-bold text-[#1A3A52] mb-6 mt-12">{children}</h1>,
@@ -43,37 +62,46 @@ export function BlogPost() {
     },
     marks: {
       strong: ({children}: any) => <strong className="font-bold text-[#1A3A52]">{children}</strong>,
+      // ESTILO NOVO PARA LINKS:
+      link: ({children, value}: any) => {
+        const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined;
+        return (
+          <a href={value.href} rel={rel} target="_blank" className="text-[#C9A962] font-semibold underline hover:text-[#1A3A52] transition-colors">
+            {children}
+          </a>
+        );
+      },
     }
   };
 
   return (
-    <article className="pt-32 pb-24 px-4 max-w-3xl mx-auto min-h-screen">
-      {/* Botão de voltar */}
-      <Link 
-        to="/blog" 
-        className="inline-flex items-center text-[#C9A962] font-semibold hover:text-[#1A3A52] transition-colors mb-10"
-      >
-        &larr; Voltar para o blog
-      </Link>
+    <article className="pt-32 pb-24 min-h-screen bg-white">
+      <div className="max-w-4xl mx-auto px-4">
+        <Link to="/blog" className="inline-flex items-center text-[#C9A962] font-semibold hover:text-[#1A3A52] transition-colors mb-8">
+          &larr; Voltar para o blog
+        </Link>
 
-      {/* Cabeçalho do Post */}
-      <header className="mb-12 pb-8 border-b border-gray-200">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#1A3A52] mb-6 leading-tight">
-          {post.titulo}
-        </h1>
-        <div className="flex items-center gap-4 text-sm text-[#6B7280] font-medium tracking-wide uppercase">
-          <span>{new Date(post._createdAt).toLocaleDateString('pt-BR')}</span>
-          <span className="text-[#C9A962]">•</span>
-          <span>Por {post.autor}</span>
+        {/* IMAGEM DE CAPA NO TOPO DO ARTIGO */}
+        {post.imagemCapaUrl && (
+          <div className="w-full h-[300px] md:h-[450px] rounded-2xl overflow-hidden mb-12 shadow-lg">
+            <img src={post.imagemCapaUrl} alt={post.titulo} className="w-full h-full object-cover" />
+          </div>
+        )}
+
+        <header className="mb-12 pb-8 border-b border-gray-100 max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#1A3A52] mb-6 leading-tight">
+            {post.titulo}
+          </h1>
+          <div className="flex items-center gap-4 text-sm text-[#6B7280] font-medium tracking-wide uppercase">
+            <span>{new Date(post._createdAt).toLocaleDateString('pt-BR')}</span>
+            <span className="text-[#C9A962]">•</span>
+            <span>Por {post.autor}</span>
+          </div>
+        </header>
+
+        <div className="prose-custom max-w-3xl mx-auto">
+          <PortableText value={post.conteudo} components={myPortableTextComponents} />
         </div>
-      </header>
-
-      {/* Conteúdo do Post gerado pelo Sanity */}
-      <div className="prose-custom">
-        <PortableText 
-          value={post.conteudo} 
-          components={myPortableTextComponents} 
-        />
       </div>
     </article>
   );
