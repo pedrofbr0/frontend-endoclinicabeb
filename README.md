@@ -1,11 +1,78 @@
 
-  # Landing page para médicos
+# EndoClinicaBeB Frontend
 
-  This is a code bundle for Landing page para médicos. The original project is available at https://www.figma.com/design/OMz0buNFShOEgVEna9jbWM/Landing-page-para-m%C3%A9dicos.
+A modern frontend application for EndoClinicaBeB, built with web technologies for managing clinic operations and patient care.
 
-  ## Running the code
+## Overview
 
-  Run `npm i` to install the dependencies.
+This repository contains the frontend client for the EndoClinicaBeB system, providing a user interface for clinic management and patient interactions.
 
-  Run `npm run dev` to start the development server.
-  
+## Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn package manager
+- Git
+
+## Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd frontend-endoclinicabeb
+```
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+## Setup
+
+1. Create a `.env` file in the root directory with required environment variables:
+
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+1. Configure any additional settings in the project configuration files.
+
+## Running the Application
+
+### Development Mode
+
+```bash
+npm run dev
+```
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+## Project Structure
+
+```bash
+src/
+├── components/     # Reusable UI components
+├── pages/          # Page components
+├── services/       # API services
+├── styles/         # Global styles
+└── main.js         # Application entry point
+```
+
+## Contributing
+
+Follow the project's coding standards and submit pull requests for review.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
