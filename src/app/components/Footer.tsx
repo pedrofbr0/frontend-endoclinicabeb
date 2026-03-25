@@ -63,6 +63,8 @@ export function Footer() {
 
   const telefoneLimpo = contactData?.telefone?.replace(/\D/g, '') || '34984477953';
 
+  const message = 'Olá! Gostaria de agendar uma avaliação personalizada.';
+
   return (
     <footer className="bg-[#1A3A52] text-white">
       <div className="container mx-auto px-4 py-12 md:py-16">
@@ -153,7 +155,7 @@ export function Footer() {
               <ul className="space-y-3 text-white/80 text-sm">
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-[#C9A962]" />
-                  <a href={`tel:+55${telefoneLimpo}`} className="hover:text-[#C9A962] transition-colors">
+                  <a href={`https://wa.me/55${telefoneLimpo}?text=${encodeURIComponent(message)}`} className="hover:text-[#C9A962] transition-colors">
                     {contactData.telefone}
                   </a>
                 </li>

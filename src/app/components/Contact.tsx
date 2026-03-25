@@ -47,6 +47,8 @@ export function Contact() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const message = 'Olá! Gostaria de agendar uma avaliação personalizada.';
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const numeroWhatsApp = `55${whatsappNumber}`;
@@ -112,7 +114,7 @@ ${formData.mensagem}`;
                   <div>
                     <h4 className="font-semibold text-[#1A3A52] mb-2">Telefone e WhatsApp</h4>
                     <p className="text-[#6B7280]">
-                      <a href={`tel:+55${whatsappNumber}`} className="hover:text-[#C9A962] transition-colors block">
+                      <a href={`https://wa.me/55${whatsappNumber}?text=${encodeURIComponent(message)}`} className="hover:text-[#C9A962] transition-colors block">
                         {contactData.telefone}
                       </a>
                     </p>
