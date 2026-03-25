@@ -1,34 +1,49 @@
 import { Phone, Mail, Menu, X } from 'lucide-react';
-import { useEffect, useState } from 'react'
-import { client } from '../../lib/sanity' // ou o caminho onde você salvou o client
+import { useEffect, useState } from 'react';
+import { client } from '../../lib/sanity';
+import { useNavigate, useLocation } from 'react-router-dom'; // <-- Novas importações aqui
 
 export function Header() {
-  const [telefone, setTelefone] = useState('(34) 98447-7953')
-  const [email, setEmail] = useState()
-  
-  useEffect(() => {
-    client.fetch('*[_type == "contato"][0]').then((dados) => {
-      if (dados && dados.telefone) {
-        setTelefone(dados.telefone)
-      }
-      if (dados && dados.email) {
-        setEmail(dados.email)
-      }
-    })
-  }, [])
-
+  const [telefone, setTelefone] = useState('(34) 98447-7953');
+  const [email, setEmail] = useState(''); // Mudei para string vazia para evitar erro de tipo
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false);
+  // Ferramentas do React Router para navegação programada
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    client.fetch('*[_type == "contato"][0]').then((dados) => {
+      if (dados && dados.telefone) setTelefone(dados.telefone);
+      if (dados && dados.email) setEmail(dados.email);
+    }).catch(console.error); // Adicionei um catch por segurança
+  }, []);
+
+  // Nova função de navegação/scroll
+  const handleNavClick = (id: string) => {
+    setIsMenuOpen(false); // Fecha o menu mobile
+
+    if (location.pathname === '/') {
+      // Se já estiver na Home, apenas faz o scroll suave (comportamento original)
+      if (id === 'home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const element = document.getElementById(id);
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // Se estiver no Blog, navega de volta para a Home jogando o ID na URL
+      if (id === 'home') {
+        navigate('/');
+      } else {
+        navigate(`/#${id}`); // O App.tsx vai interceptar isso e fazer o scroll
+      }
     }
   };
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-[#FAFAF8]/95 backdrop-blur-md shadow-sm z-50 border-b border-[rgba(26,58,82,0.08)]">
+      {/* ... A barra superior com contatos continua idêntica ... */}
       <div className="bg-[#1A3A52] text-white py-2.5">
         <div className="container mx-auto px-4 flex justify-end gap-6 text-sm">
           <a href={`tel:+55${telefone.replace(/[^0-9]/g, '')}`} className="flex items-center gap-2 hover:text-[#C9A962] transition-colors">
@@ -47,83 +62,59 @@ export function Header() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <h2 className="text-2xl md:text-3xl font-serif font-bold">
+            {/* Transformei a Logo em um botão clicável para voltar ao Início */}
+            <button onClick={() => handleNavClick('home')} className="text-2xl md:text-3xl font-serif font-bold cursor-pointer text-left">
               <span className="text-[#C9A962]">Endo</span><span className="text-[#1A3A52]">Clínica</span> <span className="text-[#C9A962]">B&B</span>
-            </h2>
+            </button>
           </div>
           
           <nav className="hidden lg:flex items-center gap-8">
-            <button 
-              onClick={() => scrollToSection('home')} 
-              className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium"
-            >
+            {/* Agora usamos handleNavClick em vez de scrollToSection */}
+            <button onClick={() => handleNavClick('home')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium">
               Início
             </button>
-            <button 
-              onClick={() => scrollToSection('diferenciais')} 
-              className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium"
-            >
+            <button onClick={() => handleNavClick('diferenciais')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium">
               Diferenciais
             </button>
-            <button 
-              onClick={() => scrollToSection('especialidades')} 
-              className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium"
-            >
+            <button onClick={() => handleNavClick('especialidades')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium">
               Especialidades
             </button>
-            <button 
-              onClick={() => scrollToSection('equipe')} 
-              className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium"
-            >
+            <button onClick={() => handleNavClick('equipe')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium">
               Equipe
             </button>
-            <button 
-              onClick={() => scrollToSection('contato')} 
-              className="bg-[#C9A962] text-[#1A3A52] px-6 py-2.5 rounded-xl hover:bg-[#A08847] transition-all shadow-md hover:shadow-lg font-semibold min-h-[44px]"
-            >
+            {/* Dica: Adicionei o link para o Blog no menu! */}
+            <button onClick={() => handleNavClick('blog')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium">
+              Blog
+            </button>
+            <button onClick={() => handleNavClick('contato')} className="bg-[#C9A962] text-[#1A3A52] px-6 py-2.5 rounded-xl hover:bg-[#A08847] transition-all shadow-md hover:shadow-lg font-semibold min-h-[44px]">
               Agendar Avaliação
             </button>
           </nav>
 
-          <button 
-            className="lg:hidden text-[#1A3A52] p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Menu"
-          >
+          <button className="lg:hidden text-[#1A3A52] p-2" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Menu">
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
+        {/* Menu Mobile */}
         {isMenuOpen && (
           <nav className="lg:hidden mt-6 pb-4 flex flex-col gap-4 border-t border-[rgba(26,58,82,0.08)] pt-4">
-            <button 
-              onClick={() => scrollToSection('home')} 
-              className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium"
-            >
+            <button onClick={() => handleNavClick('home')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium">
               Início
             </button>
-            <button 
-              onClick={() => scrollToSection('diferenciais')} 
-              className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium"
-            >
+            <button onClick={() => handleNavClick('diferenciais')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium">
               Diferenciais
             </button>
-            <button 
-              onClick={() => scrollToSection('especialidades')} 
-              className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium"
-            >
+            <button onClick={() => handleNavClick('especialidades')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium">
               Especialidades
             </button>
-            <button 
-              onClick={() => scrollToSection('equipe')} 
-              className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium"
-            >
+            <button onClick={() => handleNavClick('equipe')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium">
               Equipe
             </button>
-            <button 
-              onClick={() => scrollToSection('contato')}
-              className="bg-[#C9A962] text-[#1A3A52] px-6 py-3 rounded-xl hover:bg-[#A08847] transition-all text-center font-semibold min-h-[44px]"
-            >
+            <button onClick={() => handleNavClick('blog')} className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium">
+              Blog
+            </button>
+            <button onClick={() => handleNavClick('contato')} className="bg-[#C9A962] text-[#1A3A52] px-6 py-3 rounded-xl hover:bg-[#A08847] transition-all text-center font-semibold min-h-[44px]">
               Agendar Avaliação
             </button>
           </nav>
