@@ -1,7 +1,22 @@
 import { Phone, Mail, Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react'
+import { client } from '../../lib/sanity' // ou o caminho onde você salvou o client
 
 export function Header() {
+  const [telefone, setTelefone] = useState('(34) 98447-7953')
+  const [email, setEmail] = useState()
+  
+  useEffect(() => {
+    client.fetch('*[_type == "contato"][0]').then((dados) => {
+      if (dados && dados.telefone) {
+        setTelefone(dados.telefone)
+      }
+      if (dados && dados.email) {
+        setEmail(dados.email)
+      }
+    })
+  }, [])
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const scrollToSection = (id: string) => {
@@ -16,14 +31,16 @@ export function Header() {
     <header className="fixed top-0 left-0 right-0 bg-[#FAFAF8]/95 backdrop-blur-md shadow-sm z-50 border-b border-[rgba(26,58,82,0.08)]">
       <div className="bg-[#1A3A52] text-white py-2.5">
         <div className="container mx-auto px-4 flex justify-end gap-6 text-sm">
-          <a href="tel:+5534984477953" className="flex items-center gap-2 hover:text-[#C9A962] transition-colors">
+          <a href={`tel:+55${telefone.replace(/[^0-9]/g, '')}`} className="flex items-center gap-2 hover:text-[#C9A962] transition-colors">
             <Phone className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">(34) 98447-7953</span>
+            <span className="hidden sm:inline">{telefone}</span>
           </a>
-          <a href="mailto:contato@endoclinica.com.br" className="hidden md:flex items-center gap-2 hover:text-[#C9A962] transition-colors">
-            <Mail className="w-3.5 h-3.5" />
-            <span>contato@endoclinica.com.br</span>
-          </a>
+          {email && (
+            <a href={`mailto:${email}`} className="hidden md:flex items-center gap-2 hover:text-[#C9A962] transition-colors">
+              <Mail className="w-3.5 h-3.5" />
+              <span>{email}</span>
+            </a>
+          )}
         </div>
       </div>
       

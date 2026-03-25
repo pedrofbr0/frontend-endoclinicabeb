@@ -1,8 +1,29 @@
 import { GraduationCap, Award, Briefcase } from "lucide-react";
-import drRuiImage from "../../assets/9baa44d9f592738b6002929c2e0a8829051eed52.png";
-import drYuriImage from "../../assets/c24300abed7a6ac555337b10631cacf6fae00499.png";
+import { client } from "@/lib/sanity";
+import { useEffect, useState } from "react";
 
-const team = [
+export function Team() {
+
+  const [drRuiImage, setImageRui] = useState()
+  const [drYuriImage, setImageYuri] = useState()
+
+  useEffect(() => {
+    client.fetch(`
+      *[_type == "imagens"][0]{
+        "urlRui": drRuiImage.asset->url,
+        "urlYuri": drYuriImage.asset->url
+      }
+    `).then((dados) => {
+      if (dados?.urlRui) {
+        setImageRui(dados.urlRui);
+      }
+      if (dados?.urlYuri) {
+        setImageYuri(dados.urlYuri);
+      }
+    })
+  }, [])
+
+  const team = [
   {
     name: "Dr. Rui Barbosa",
     crm: "CRM/MG 70638",
@@ -30,7 +51,6 @@ const team = [
   },
 ];
 
-export function Team() {
   return (
     <section id="equipe" className="py-20 md:py-28 bg-white">
       <div className="container mx-auto px-4">
@@ -54,7 +74,7 @@ export function Team() {
             >
               <div className="relative overflow-hidden h-80 md:h-96">
                 <img
-                  src={doctor.image}
+                  src={`${doctor.image}?w=1200&auto=format&q=75`}
                   alt={`${doctor.name} - ${doctor.specialty}`}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   style={{ objectFit: 'cover', ...doctor.customImageStyle }}
