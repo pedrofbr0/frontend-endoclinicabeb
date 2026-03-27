@@ -125,7 +125,7 @@ export function Header() {
                     <img
                       src={logoUrl}
                       alt="EndoClínica B&B Logo"
-                      className="h-4 md:h-6 w-auto object-contain"
+                      className="h-6 md:h-8 w-auto object-contain"
                     />
                   )}
                   <span className="text-2xl md:text-3xl font-serif font-bold">
