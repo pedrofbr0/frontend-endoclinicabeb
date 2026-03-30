@@ -1,78 +1,106 @@
+# EndoClinica B&B Frontend
 
-# EndoClinicaBeB Frontend
+Institutional website frontend for EndoClinica B&B, built with the Next.js App Router and integrated with Sanity for blog content, clinic data, and contact capture.
 
-A modern frontend application for EndoClinicaBeB, built with web technologies for managing clinic operations and patient care.
+## Stack
 
-## Overview
+- Next.js 15
+- React 18
+- Tailwind CSS 4
+- Sanity Content Lake
 
-This repository contains the frontend client for the EndoClinicaBeB system, providing a user interface for clinic management and patient interactions.
+## Requirements
 
-## Prerequisites
+- Node.js 20+
+- npm 10+
 
-- Node.js (v14 or higher)
-- npm or yarn package manager
-- Git
+## Environment Variables
 
-## Installation
+Create `frontend-endoclinicabeb/.env.local` only for local development. Do not commit this file.
 
-1. Clone the repository:
+Use `frontend-endoclinicabeb/.env.example` as the template.
 
-```bash
-git clone <repository-url>
-cd frontend-endoclinicabeb
-```
+Main variables:
 
-1. Install dependencies:
+- `SANITY_API_WRITE_TOKEN`
+  Server-side token used to store contacts in Sanity.
+- `NEXT_PUBLIC_SITE_URL`
+  Public site URL used for canonical URLs and Open Graph metadata.
+- `NEXT_PUBLIC_SANITY_PROJECT_ID`
+  Optional override for the default project id.
+- `NEXT_PUBLIC_SANITY_DATASET`
+  Optional override for the default dataset.
 
-```bash
-npm install
-```
+## Scripts
 
-## Setup
+- `npm run dev`
+  Starts the local development server.
+- `npm run dev:clean`
+  Clears local caches and starts the development server.
+- `npm run typecheck`
+  Runs TypeScript checks.
+- `npm run build`
+  Creates the production build.
+- `npm run start`
+  Starts the production build locally.
+- `npm run clean`
+  Removes local caches and logs.
+- `npm run check`
+  Runs typecheck and build in sequence.
 
-1. Create a `.env` file in the root directory with required environment variables:
+## Structure
 
-```env
-VITE_API_URL=http://localhost:3000
-```
+- `src/app`
+  Routes, layout, and application components.
+- `src/lib`
+  Sanity integrations and shared utilities.
+- `src/styles`
+  Global styles and theme configuration.
+- `public`
+  Public assets such as the logo and favicon.
+- `scripts`
+  Local maintenance scripts.
 
-1. Configure any additional settings in the project configuration files.
+## What Should Be Committed
 
-## Running the Application
+- `src/`
+- `public/`
+- `scripts/`
+- `package.json`
+- `package-lock.json`
+- `tsconfig.json`
+- `next.config.ts`
+- `postcss.config.mjs`
+- `next-env.d.ts`
+- `.env.example`
+- `README.md`
 
-### Development Mode
+## What Should Not Be Committed
 
-```bash
-npm run dev
-```
+- `.env.local`
+- `.next/`
+- `node_modules/`
+- `.vercel/`
+- local log files
+- `*.tsbuildinfo` files
 
-### Build for Production
+## Vercel Deployment
 
-```bash
-npm run build
-```
+1. Import the frontend repository into Vercel.
+2. Set the framework preset to `Next.js`.
+3. If Vercel points to a parent directory, set `frontend-endoclinicabeb` as the Root Directory.
+4. Register environment variables in the Vercel dashboard instead of committing local env files.
+5. Deploy.
 
-### Preview Production Build
+Recommended Vercel variables:
 
-```bash
-npm run preview
-```
+- `SANITY_API_WRITE_TOKEN`
+- `NEXT_PUBLIC_SITE_URL`
+- `NEXT_PUBLIC_SANITY_PROJECT_ID` if needed
+- `NEXT_PUBLIC_SANITY_DATASET` if needed
 
-## Project Structure
+## Notes
 
-```bash
-src/
-├── components/     # Reusable UI components
-├── pages/          # Page components
-├── services/       # API services
-├── styles/         # Global styles
-└── main.js         # Application entry point
-```
-
-## Contributing
-
-Follow the project's coding standards and submit pull requests for review.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+- The contact form opens the clinic WhatsApp and tries to save the lead in Sanity in parallel.
+- The site favicon falls back to `public/favicon-blue-background.png` when no CMS upload is present.
+- If `next dev` locks `.next/trace` on Windows, run `npm run clean` before starting the app again.

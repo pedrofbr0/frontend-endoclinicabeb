@@ -1,67 +1,51 @@
-import { ChevronRight } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { client } from '../../lib/sanity'
+import {ChevronRight} from 'lucide-react'
 
-export function Hero() {
+interface HeroProps {
+  heroImageUrl?: string
+}
 
-  const [heroImage, setImageHero] = useState()
-
-  useEffect(() => {
-    client.fetch(`*[_type == "imagens"][0]{"url": heroImage.asset->url}`).then((dados) => {
-      console.log('Dados do Sanity para a imagem do Hero:', dados);
-      if (dados?.url) {
-        setImageHero(dados.url);
-      }
-    })
-  }, [])
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
+export function Hero({heroImageUrl}: HeroProps) {
   return (
-    <section id="home" className="pt-32 md:pt-40 pb-16 md:pb-24 bg-gradient-to-b from-[#FAFAF8] to-white relative overflow-hidden">
-      {/* Elemento decorativo */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#C9A962]/5 rounded-full blur-3xl"></div>
+    <section
+      id="home"
+      className="pt-32 md:pt-40 pb-16 md:pb-24 bg-gradient-to-b from-[#FAFAF8] to-white relative overflow-hidden"
+    >
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#C9A962]/5 rounded-full blur-3xl" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="order-2 lg:order-1">
             <div className="inline-block mb-6 px-4 py-2 bg-[#E3D5B7]/30 rounded-full">
               <span className="text-[#1A3A52] text-sm font-semibold tracking-wide">
-                Endocrinologia de Alto Padrão
+                Endocrinologia de Alto Padrao
               </span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#1A3A52] mb-6 leading-tight">
-              Saúde endócrina: cuidado em dobro no seu acompanhamento metabólico
+              Saude endocrina: cuidado em dobro no seu acompanhamento metabolico
             </h1>
 
             <p className="text-lg md:text-xl text-[#6B7280] mb-8 leading-relaxed font-light">
-              Unimos ciência, tecnologia e atendimento humanizado para cuidar de você.
+              Unimos ciencia, tecnologia e atendimento humanizado para cuidar de voce.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button
-                onClick={() => scrollToSection('contato')}
+              <a
+                href="#contato"
                 className="bg-[#C9A962] text-[#1A3A52] px-8 py-4 rounded-xl hover:bg-[#A08847] transition-all shadow-lg hover:shadow-xl font-semibold text-base flex items-center justify-center gap-2 min-h-[54px]"
               >
-                Agendar Avaliação Personalizada
+                Agendar Avaliacao Personalizada
                 <ChevronRight className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() => scrollToSection('especialidades')}
-                className="border-2 border-[#1A3A52] text-[#1A3A52] px-8 py-4 rounded-xl hover:bg-[#1A3A52] hover:text-white transition-all font-semibold text-base min-h-[54px]"
+              </a>
+              <a
+                href="#especialidades"
+                className="border-2 border-[#1A3A52] text-[#1A3A52] px-8 py-4 rounded-xl hover:bg-[#1A3A52] hover:text-white transition-all font-semibold text-base min-h-[54px] text-center"
               >
                 Nossas Especialidades
-              </button>
+              </a>
             </div>
 
-<div className="mt-12 grid grid-cols-3 gap-3 sm:gap-6">
-              {/* Bloco 1: Dedicação */}
+            <div className="mt-12 grid grid-cols-3 gap-3 sm:gap-6">
               <div className="text-center">
                 <div className="text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-[#C9A962] mb-1">
                   100%
@@ -70,49 +54,43 @@ export function Hero() {
                   Foco no Paciente
                 </p>
               </div>
-              
-              {/* Bloco 2: Nível do Serviço */}
+
               <div className="text-center border-x border-[rgba(26,58,82,0.1)] px-2">
                 <div className="text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-[#C9A962] mb-1">
-                  Alto Padrão
+                  Alto Padrao
                 </div>
                 <p className="text-[10px] sm:text-xs md:text-sm text-[#6B7280] font-medium uppercase tracking-wider">
-                  Clínico e Científico
+                  Clinico e Cientifico
                 </p>
               </div>
-              
-              {/* Bloco 3: O grande diferencial deles (As duas residências) */}
+
               <div className="text-center">
                 <div className="text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-[#C9A962] mb-1">
-                  Formação
+                  Formacao
                 </div>
                 <p className="text-[10px] sm:text-xs md:text-sm text-[#6B7280] font-medium uppercase tracking-wider">
-                  de Excelência
+                  de Excelencia
                 </p>
               </div>
             </div>
-
           </div>
+
           <div className="order-1 lg:order-2">
             <div className="rounded-2xl overflow-hidden shadow-2xl relative">
-              {!heroImage && (
-                <div className="absolute inset-0 flex items-center justify-center bg-slate-200 animate-pulse">
-                  {/* Ícone opcional no centro do skeleton */}
-                  <div className="w-20 h-20 bg-slate-300 rounded-full"></div>
-                </div>
-              )}
-              {heroImage && (
+              {heroImageUrl ? (
                 <img
-                  src={`${heroImage}?w=1200&auto=format&q=75`}
+                  src={`${heroImageUrl}?w=1600&auto=format&q=75`}
                   className="w-full h-[500px] md:h-[600px] lg:h-[750px] object-cover object-center"
-                  alt="Dr. Rui Barbosa e Dr. Yuri Bittencourt - Médicos endocrinologistas da EndoClínica B&B"
+                  alt="Equipe medica da EndoClinica B&B"
                 />
+              ) : (
+                <div className="w-full h-[500px] md:h-[600px] lg:h-[750px] bg-slate-200 animate-pulse" />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1A3A52]/20 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1A3A52]/20 to-transparent" />
             </div>
           </div>
         </div>
       </div>
     </section>
-  );
+  )
 }

@@ -1,12 +1,12 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Tipografia Premium */
+  /* Premium Typography */
   --font-serif: 'Playfair Display', serif;
   --font-sans: 'Inter', sans-serif;
   --font-size: 16px;
   
-  /* Paleta de Cores Premium */
+  /* Premium Color Palette */
   --background: #FAFAF8;
   --foreground: #2C3E50;
   --card: #FFFFFF;
@@ -14,19 +14,19 @@
   --popover: #FFFFFF;
   --popover-foreground: #2C3E50;
   
-  /* Azul Marinho Elegante (Primary) */
+  /* Elegant Navy Blue (Primary) */
   --primary: #1A3A52;
   --primary-foreground: #FFFFFF;
   --primary-light: #2E5266;
   --primary-dark: #0F2333;
   
-  /* Dourado Champagne (Accent) */
+  /* Champagne Gold (Accent) */
   --secondary: #C9A962;
   --secondary-foreground: #1A3A52;
   --secondary-light: #E3D5B7;
   --secondary-dark: #A08847;
   
-  /* Tons Neutros */
+  /* Neutral Tones */
   --muted: #F5F5F3;
   --muted-foreground: #6B7280;
   --accent: #E8E6E1;
@@ -148,6 +148,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
+    margin: 0;
   }
 
   /**
@@ -157,6 +158,8 @@
 
   html {
     font-size: var(--font-size);
+    scroll-behavior: smooth;
+    scroll-padding-top: 8rem;
   }
 
   h1 {

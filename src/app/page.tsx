@@ -1,0 +1,33 @@
+import type {Metadata} from 'next'
+import {BlogPreview} from './components/BlogPreview'
+import {Contact} from './components/Contact'
+import {HashScrollHandler} from './components/HashScrollHandler'
+import {Hero} from './components/Hero'
+import {Specialties} from './components/Specialties'
+import {Team} from './components/Team'
+import {ValueProposition} from './components/ValueProposition'
+import {getDoctorProfiles, getLatestPosts, getSiteShellData} from '../lib/sanity.server'
+
+export const metadata: Metadata = {
+  title: 'Endocrinologia de Alto Padrao',
+  description:
+    'Atendimento em endocrinologia com foco em emagrecimento, diabetes, reposicao hormonal, tireoide e metabolismo osseo.',
+}
+
+export default async function HomePage() {
+  const [{contactInfo, siteSettings, hasBlogPosts}, doctorProfiles, latestPosts] = await Promise.all(
+    [getSiteShellData(), getDoctorProfiles(), getLatestPosts(3)],
+  )
+
+  return (
+    <main>
+      <HashScrollHandler />
+      <Hero heroImageUrl={siteSettings.heroImageUrl} />
+      <ValueProposition />
+      <Specialties />
+      <Team doctorProfiles={doctorProfiles} />
+      {hasBlogPosts ? <BlogPreview posts={latestPosts} /> : null}
+      <Contact contactInfo={contactInfo} />
+    </main>
+  )
+}
