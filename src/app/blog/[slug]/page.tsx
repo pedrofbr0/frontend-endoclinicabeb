@@ -34,6 +34,24 @@ export async function generateMetadata({params}: BlogPostPageProps): Promise<Met
   const description = truncateText(post.excerpt || post.title, 160)
   const canonicalUrl = buildAbsoluteUrl(`/blog/${post.slug}`)
   const socialImageUrl = getSanityImageUrl(post.coverImage, {width: 1200, height: 630})
+  const shouldShowAuthor = post.showAuthor && Boolean(post.author)
+  const shouldShowDate = post.showDate
+  const openGraphData = {
+    type: 'article',
+    title: post.title,
+    description,
+    url: canonicalUrl,
+    ...(shouldShowAuthor && post.author ? {authors: [post.author]} : {}),
+    ...(shouldShowDate ? {publishedTime: post.publishedAt} : {}),
+    images: socialImageUrl
+      ? [
+          {
+            url: socialImageUrl,
+            alt: post.title,
+          },
+        ]
+      : ['/logo-beb.png'],
+  }
 
   return {
     title: post.title,
@@ -41,22 +59,7 @@ export async function generateMetadata({params}: BlogPostPageProps): Promise<Met
     alternates: {
       canonical: canonicalUrl,
     },
-    openGraph: {
-      type: 'article',
-      title: post.title,
-      description,
-      url: canonicalUrl,
-      authors: [post.author],
-      publishedTime: post.publishedAt,
-      images: socialImageUrl
-        ? [
-            {
-              url: socialImageUrl,
-              alt: post.title,
-            },
-          ]
-        : ['/logo-beb.png'],
-    },
+    openGraph: openGraphData,
     twitter: {
       card: 'summary_large_image',
       title: post.title,
@@ -73,6 +76,11 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
   if (!post) {
     notFound()
   }
+
+  const metaParts = [
+    post.showDate ? formatBrazilianDate(post.publishedAt) : '',
+    post.showAuthor && post.author ? `Por ${post.author}` : '',
+  ].filter(Boolean)
 
   return (
     <article className="pt-32 pb-24 min-h-screen bg-white">
@@ -100,11 +108,16 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
           </h1>
 
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-            <div className="flex flex-wrap items-center gap-4 text-sm font-medium tracking-wide text-[#6B7280] uppercase">
-              <span>{formatBrazilianDate(post.publishedAt)}</span>
-              <span className="text-[#C9A962]">.</span>
-              <span>Por {post.author}</span>
-            </div>
+            {metaParts.length ? (
+              <div className="flex flex-wrap items-center gap-3 text-sm font-medium tracking-wide text-[#6B7280] uppercase">
+                {metaParts.map((part, index) => (
+                  <div key={`${part}-${index}`} className="flex items-center gap-3">
+                    {index > 0 ? <span className="text-[#C9A962]">{'\u2022'}</span> : null}
+                    <span>{part}</span>
+                  </div>
+                ))}
+              </div>
+            ) : <div />}
 
             <ShareArticleButton
               title={post.title}

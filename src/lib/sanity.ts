@@ -116,10 +116,13 @@ export interface SanityPostRecord {
   _id: string
   title: string
   slug: string
-  author: string
+  author?: string
+  showOnFrontend?: boolean
   _createdAt: string
   useRealDate?: boolean
   displayDate?: string
+  hideAuthor?: boolean
+  hideDate?: boolean
   coverImage?: SanityImageSource
   cardImage?: SanityImageSource
   excerpt?: string
@@ -130,8 +133,10 @@ export interface BlogPostSummary {
   _id: string
   title: string
   slug: string
-  author: string
+  author?: string
   publishedAt: string
+  showAuthor: boolean
+  showDate: boolean
   coverImage?: SanityImageSource
   cardImage?: SanityImageSource
   excerpt: string
@@ -178,12 +183,16 @@ export function formatBrazilianDate(value: string) {
 }
 
 export function mapBlogPost(post: SanityPostRecord): BlogPostSummary {
+  const normalizedAuthor = post.author?.trim()
+
   return {
     _id: post._id,
     title: post.title,
     slug: post.slug,
-    author: post.author,
+    author: normalizedAuthor,
     publishedAt: resolveDisplayDate(post),
+    showAuthor: post.hideAuthor !== true && Boolean(normalizedAuthor),
+    showDate: post.hideDate !== true,
     coverImage: post.coverImage,
     cardImage: post.cardImage || post.coverImage,
     excerpt: truncateText(post.excerpt || ''),

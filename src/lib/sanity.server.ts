@@ -60,17 +60,20 @@ const postProjection = `
   "title": titulo,
   "slug": slug.current,
   "author": autor,
+  "showOnFrontend": coalesce(showOnFrontend, true),
   _createdAt,
   "useRealDate": usarDataReal,
   "displayDate": dataExibicao,
+  "hideAuthor": hideAuthor,
+  "hideDate": hideDate,
   "coverImage": imagemCapa${imageProjection},
   "cardImage": coalesce(imagemCard${imageProjection}, imagemCapa${imageProjection}),
   "excerpt": pt::text(conteudo)
 `
 
-const postsQuery = `*[_type == "post" && defined(slug.current)]{${postProjection}}`
-const postBySlugQuery = `*[_type == "post" && slug.current == $slug][0]{${postProjection}, "content": conteudo}`
-const postCountQuery = `count(*[_type == "post" && defined(slug.current)])`
+const postsQuery = `*[_type == "post" && defined(slug.current) && coalesce(showOnFrontend, true) == true]{${postProjection}}`
+const postBySlugQuery = `*[_type == "post" && slug.current == $slug && coalesce(showOnFrontend, true) == true][0]{${postProjection}, "content": conteudo}`
+const postCountQuery = `count(*[_type == "post" && defined(slug.current) && coalesce(showOnFrontend, true) == true])`
 
 export const getContactInfo = cache(async () => {
   return sanityClient.fetch<ContactInfo | null>(contactInfoQuery)

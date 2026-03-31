@@ -19,6 +19,10 @@ export function BlogPostCard({post, variant = 'listing'}: BlogPostCardProps) {
     height: 540,
     fit: 'crop',
   })
+  const metaParts = [
+    post.showDate ? formatBrazilianDate(post.publishedAt) : '',
+    post.showAuthor && post.author ? post.author : '',
+  ].filter(Boolean)
 
   return (
     <article
@@ -42,9 +46,11 @@ export function BlogPostCard({post, variant = 'listing'}: BlogPostCardProps) {
 
       <div className={`${isHomeVariant ? 'p-6' : 'p-8'} flex-1 flex flex-col`.trim()}>
         <div className="flex-1">
-          <p className="text-sm text-[#C9A962] font-semibold mb-3 tracking-wide">
-            {formatBrazilianDate(post.publishedAt)} . {post.author}
-          </p>
+          {metaParts.length ? (
+            <p className="text-sm text-[#C9A962] font-semibold mb-3 tracking-wide">
+              {metaParts.join(' \u2022 ')}
+            </p>
+          ) : null}
           <h3
             className={`text-[#1A3A52] mb-4 ${
               isHomeVariant ? 'text-xl font-bold line-clamp-2' : 'text-2xl font-serif font-bold'

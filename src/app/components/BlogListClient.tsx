@@ -20,7 +20,13 @@ export function BlogListClient({posts}: BlogListClientProps) {
       return true
     }
 
-    const searchableContent = [post.title, post.author, post.excerpt].join(' ').toLowerCase()
+    const searchableContent = [
+      post.title,
+      post.showAuthor ? post.author || '' : '',
+      post.excerpt,
+    ]
+      .join(' ')
+      .toLowerCase()
     return searchableContent.includes(deferredSearchTerm)
   })
 
