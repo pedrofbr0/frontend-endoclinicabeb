@@ -4,7 +4,7 @@ interface FloatingWhatsAppProps {
   phone?: string
 }
 
-const quickMessage = 'Ola! Gostaria de agendar uma avaliacao personalizada.'
+const quickMessage = 'Olá! Gostaria de agendar uma avaliação personalizada.'
 
 export function FloatingWhatsApp({phone}: FloatingWhatsAppProps) {
   const whatsappNumber = phone?.replace(/\D/g, '')

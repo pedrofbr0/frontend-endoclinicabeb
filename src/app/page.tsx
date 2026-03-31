@@ -11,7 +11,7 @@ import {getDoctorProfiles, getLatestPosts, getSiteShellData} from '../lib/sanity
 export const metadata: Metadata = {
   title: 'Endocrinologia de Alto Padrao',
   description:
-    'Atendimento em endocrinologia com foco em emagrecimento, diabetes, reposicao hormonal, tireoide e metabolismo osseo.',
+    'Atendimento em endocrinologia com foco em emagrecimento, diabetes, reposição hormonal, tireoide e metabolismo ósseo.',
 }
 
 export default async function HomePage() {

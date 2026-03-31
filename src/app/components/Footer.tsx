@@ -35,13 +35,13 @@ export function Footer({contactInfo, doctorProfiles, hasBlogPosts, logoUrl}: Foo
               ) : null}
               <h3 className="text-2xl md:text-3xl font-serif font-bold">
                 <span className="text-[#C9A962]">Endo</span>
-                <span className="text-white">Clinica</span>{' '}
+                <span className="text-white">Clínica</span>{' '}
                 <span className="text-[#C9A962]">B&B</span>
               </h3>
             </div>
 
             <p className="text-white/80 leading-relaxed mb-6">
-              Endocrinologia de alto padrao, unindo ciencia, tecnologia e atendimento humanizado.
+              Endocrinologia de alto padrão, unindo ciência, tecnologia e atendimento humanizado.
             </p>
 
             {addressLine || regionLine ? (
@@ -73,7 +73,7 @@ export function Footer({contactInfo, doctorProfiles, hasBlogPosts, logoUrl}: Foo
           </div>
 
           <div>
-            <h4 className="font-serif font-bold text-lg mb-4">Navegacao</h4>
+            <h4 className="font-serif font-bold text-lg mb-4">Navegação</h4>
             <ul className="space-y-2 text-white/80">
               <li>
                 <SectionNavLink
@@ -140,10 +140,10 @@ export function Footer({contactInfo, doctorProfiles, hasBlogPosts, logoUrl}: Foo
             <ul className="space-y-2 text-white/80 text-sm">
               <li>Emagrecimento</li>
               <li>Diabetes</li>
-              <li>Reposicao Hormonal</li>
+              <li>Reposição Hormonal</li>
               <li>Tireoide</li>
               <li>Endocrinologia Esportiva</li>
-              <li>Metabolismo Osseo</li>
+              <li>Metabolismo Ósseo</li>
             </ul>
           </div>
 
@@ -168,7 +168,7 @@ export function Footer({contactInfo, doctorProfiles, hasBlogPosts, logoUrl}: Foo
 
             {contactInfo?.businessHours?.length ? (
               <div className="mt-6">
-                <h5 className="font-semibold text-sm mb-3">Horarios de Atendimento</h5>
+                <h5 className="font-semibold text-sm mb-3">Horários de Atendimento</h5>
                 <p className="text-white/80 text-sm leading-relaxed">
                   {contactInfo.businessHours.map((businessHour) => (
                     <span key={businessHour._key} className="block">

@@ -31,12 +31,12 @@ export function BlogListClient({posts}: BlogListClientProps) {
             href="/"
             className="mb-8 inline-flex items-center text-[#C9A962] font-semibold transition-colors hover:text-[#1A3A52]"
           >
-            &larr; Voltar para o inicio
+            &larr; Voltar para o início
           </Link>
 
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#1A3A52] mb-6">
-              Blog da EndoClinica
+              Blog da EndoClínica
             </h1>
             <p className="text-lg text-[#6B7280] max-w-2xl mx-auto mb-10">
               Explore nossos artigos sobre endocrinologia, qualidade de vida e tratamentos.
@@ -62,7 +62,7 @@ export function BlogListClient({posts}: BlogListClientProps) {
         {!posts.length ? (
           <div className="text-center py-20">
             <p className="text-xl text-[#6B7280]">
-              Nenhum artigo publicado ainda. Assim que novos textos forem ao ar, eles aparecerao
+              Nenhum artigo publicado ainda. Assim que novos textos forem ao ar, eles aparecerão
               aqui.
             </p>
           </div>

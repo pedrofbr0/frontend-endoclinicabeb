@@ -22,7 +22,7 @@ export function BlogPreview({posts}: BlogPreviewProps) {
             Artigos Recentes
           </h2>
           <p className="text-lg text-[#6B7280] max-w-2xl mx-auto leading-relaxed">
-            Informacoes e dicas sobre saude, metabolismo e bem-estar escritas pelos nossos
+            Informações e dicas sobre saúde, metabolismo e bem-estar escritas pelos nossos
             especialistas.
           </p>
         </div>

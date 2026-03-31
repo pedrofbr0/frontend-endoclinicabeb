@@ -8,45 +8,45 @@ const specialties = [
     icon: Scale,
     title: 'Emagrecimento',
     description:
-      'Tratamento individualizado para perda de peso saudavel e sustentavel, com abordagem multidisciplinar e acompanhamento continuo.',
+      'Tratamento individualizado para perda de peso saudavel e sustentável, com abordagem multidisciplinar e acompanhamento contínuo.',
     details: [
-      'Avaliacao metabolica completa',
+      'Avaliação metabólica completa',
       'Plano nutricional personalizado',
-      'Medicacoes quando indicado',
+      'Medicações quando indicado',
     ],
   },
   {
     icon: Activity,
     title: 'Diabetes',
     description:
-      'Manejo completo de diabetes tipo 1, tipo 2 e gestacional com tecnologias avancadas de monitoramento e tratamento.',
+      'Manejo completo de diabetes tipo 1, tipo 2 e gestacional com tecnologias avançadas de monitoramento e tratamento.',
     details: [
-      'Controle glicemico otimizado',
+      'Controle glicêmico otimizado',
       'Bomba de insulina e sensores',
-      'Prevencao de complicacoes',
-      'Educacao em diabetes',
+      'Prevenção de complicações',
+      'Educação em diabetes',
     ],
   },
   {
     icon: Pill,
-    title: 'Reposicao Hormonal',
+    title: 'Reposição Hormonal',
     description:
-      'Terapia hormonal personalizada para homens e mulheres, visando equilibrio, bem-estar e qualidade de vida.',
+      'Terapia hormonal personalizada para homens e mulheres, visando equilíbrio, bem-estar e qualidade de vida.',
     details: [
-      'Avaliacao hormonal completa',
-      'Reposicao de testosterona',
+      'Avaliação hormonal completa',
+      'Reposição de testosterona',
       'Menopausa e andropausa',
-      'Monitoramento continuo',
+      'Monitoramento contínuo',
     ],
   },
   {
     icon: TestTube,
     title: 'Tireoide',
     description:
-      'Diagnostico e tratamento de todas as doencas da tireoide, incluindo nodulos, hipo e hipertireoidismo.',
+      'Diagnóstico e tratamento de todas as doenças da tireoide, incluindo nódulos, hipo e hipertireoidismo.',
     details: [
       'Ultrassom com Doppler',
-      'Puncao de nodulos (PAAF)',
+      'Punção de nódulos (PAAF)',
       'Tratamento de Hashimoto',
       'Controle de hipotireoidismo',
     ],
@@ -55,24 +55,24 @@ const specialties = [
     icon: Dumbbell,
     title: 'Endocrinologia Esportiva',
     description:
-      'Otimizacao hormonal e metabolica para atletas e praticantes de atividade fisica de alto desempenho.',
+      'Otimização hormonal e metabólica para atletas e praticantes de atividade física de alto desempenho.',
     details: [
-      'Performance e recuperacao',
-      'Composicao corporal',
-      'Prevencao de lesoes',
-      'Nutricao esportiva',
+      'Performance e recuperação',
+      'Composição corporal',
+      'Prevenção de lesões',
+      'Nutrição esportiva',
     ],
   },
   {
     icon: Bone,
-    title: 'Metabolismo Osseo',
+    title: 'Metabolismo Ósseo',
     description:
-      'Avaliacao e tratamento de doencas osseas como osteoporose, osteopenia e disturbios do calcio e vitamina D.',
+      'Avaliação e tratamento de doenças osseas como osteoporose, osteopenia e disturbios do cálcio e vitamina D.',
     details: [
-      'Avaliacao do metabolismo do calcio e vitamina D',
-      'Investigacao de osteopenia e osteoporose',
+      'Avaliação do metabolismo do calcio e vitamina D',
+      'Investigação de osteopenia e osteoporose',
       'Tratamento medicamentoso quando indicado',
-      'Prevencao de fraturas e acompanhamento continuo',
+      'Prevenção de fraturas e acompanhamento contínuo',
     ],
   },
 ]
@@ -90,11 +90,11 @@ export function Specialties() {
             </span>
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#1A3A52] mb-6">
-            Nossas Especialidades Medicas
+            Nossas Especialidades Médicas
           </h2>
           <p className="text-lg text-[#6B7280] max-w-2xl mx-auto leading-relaxed">
-            Oferecemos tratamento completo e personalizado para diversas condicoes endocrinas,
-            sempre com base em evidencias cientificas.
+            Oferecemos tratamento completo e personalizado para diversas condições endócrinas,
+            sempre com base em evidências científicas.
           </p>
         </div>
 

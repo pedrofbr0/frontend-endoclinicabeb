@@ -6,10 +6,10 @@ export default function NotFound() {
       <div className="max-w-2xl mx-auto px-4 text-center">
         <span className="text-[#C9A962] text-sm font-semibold tracking-wider uppercase">404</span>
         <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#1A3A52] mt-4 mb-6">
-          Conteudo nao encontrado
+          Conteúdo não encontrado
         </h1>
         <p className="text-lg text-[#6B7280] mb-10">
-          O link pode estar desatualizado ou o artigo nao esta mais disponivel.
+          O link pode estar desatualizado ou o artigo não está mais disponível.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Link

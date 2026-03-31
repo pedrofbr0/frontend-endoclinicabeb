@@ -17,16 +17,16 @@ export function Hero({heroImageUrl}: HeroProps) {
           <div className="order-2 lg:order-1">
             <div className="inline-block mb-6 px-4 py-2 bg-[#E3D5B7]/30 rounded-full">
               <span className="text-[#1A3A52] text-sm font-semibold tracking-wide">
-                Endocrinologia de Alto Padrao
+                Endocrinologia de Alto Padrão
               </span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#1A3A52] mb-6 leading-tight">
-              Saude endocrina: cuidado em dobro no seu acompanhamento metabolico
+              Saúde endócrina: cuidado em dobro no seu acompanhamento metabólico
             </h1>
 
             <p className="text-lg md:text-xl text-[#6B7280] mb-8 leading-relaxed font-light">
-              Unimos ciencia, tecnologia e atendimento humanizado para cuidar de voce.
+              Unimos ciência, tecnologia e atendimento humanizado para cuidar de você.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -34,7 +34,7 @@ export function Hero({heroImageUrl}: HeroProps) {
                 href="#contato"
                 className="bg-[#C9A962] text-[#1A3A52] px-8 py-4 rounded-xl hover:bg-[#A08847] transition-all shadow-lg hover:shadow-xl font-semibold text-base flex items-center justify-center gap-2 min-h-[54px]"
               >
-                Agendar Avaliacao Personalizada
+                Agendar Avaliação Personalizada
                 <ChevronRight className="w-5 h-5" />
               </a>
               <a
@@ -57,19 +57,19 @@ export function Hero({heroImageUrl}: HeroProps) {
 
               <div className="text-center border-x border-[rgba(26,58,82,0.1)] px-2">
                 <div className="text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-[#C9A962] mb-1">
-                  Alto Padrao
+                  Alto Padrão
                 </div>
                 <p className="text-[10px] sm:text-xs md:text-sm text-[#6B7280] font-medium uppercase tracking-wider">
-                  Clinico e Cientifico
+                  Clínico e Científico
                 </p>
               </div>
 
               <div className="text-center">
                 <div className="text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-[#C9A962] mb-1">
-                  Formacao
+                  Formação
                 </div>
                 <p className="text-[10px] sm:text-xs md:text-sm text-[#6B7280] font-medium uppercase tracking-wider">
-                  de Excelencia
+                  de Excelência
                 </p>
               </div>
             </div>

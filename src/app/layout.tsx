@@ -17,11 +17,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(getSiteUrl()),
     title: {
-      default: 'EndoClinica B&B',
-      template: '%s | EndoClinica B&B',
+      default: 'EndoClínica B&B',
+      template: '%s | EndoClínica B&B',
     },
     description:
-      'Landing page da EndoClinica B&B com informacoes sobre a clinica, equipe medica e artigos de endocrinologia.',
+      'Landing page da EndoClínica B&B com informações sobre a clínica, equipe médica e artigos de endocrinologia.',
     icons: {
       icon: [{url: faviconUrl}],
       shortcut: faviconUrl,
@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       type: 'website',
       locale: 'pt_BR',
-      siteName: 'EndoClinica B&B',
+      siteName: 'EndoClínica B&B',
       images: [socialImage],
     },
     twitter: {

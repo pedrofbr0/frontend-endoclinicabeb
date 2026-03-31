@@ -36,7 +36,7 @@ export function BlogPostCard({post, variant = 'listing'}: BlogPostCardProps) {
         </div>
       ) : (
         <div className="aspect-video bg-[#1A3A52]/5 flex items-center justify-center">
-          <span className="text-[#C9A962] font-serif italic opacity-50 text-xl">EndoClinica B&B</span>
+          <span className="text-[#C9A962] font-serif italic opacity-50 text-xl">EndoClínica B&B</span>
         </div>
       )}
 

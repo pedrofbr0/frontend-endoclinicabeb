@@ -149,14 +149,14 @@ export function Contact({contactInfo}: ContactProps) {
             Entre em Contato
           </h2>
           <p className="text-lg text-[#6B7280] max-w-2xl mx-auto leading-relaxed">
-            Estamos prontos para atende-lo com excelencia. Agende sua avaliacao personalizada.
+            Estamos prontos para atendê-lo com excelência. Agende sua avaliação personalizada.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 mb-16">
           <div>
             <h3 className="text-2xl font-serif font-bold text-[#1A3A52] mb-8">
-              Informacoes de Contato
+              Informações de Contato
             </h3>
 
             <div className="space-y-6">
@@ -166,7 +166,7 @@ export function Contact({contactInfo}: ContactProps) {
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-[#1A3A52] mb-2">Endereco da Clinica</h4>
+                    <h4 className="font-semibold text-[#1A3A52] mb-2">Endereço da Clínica</h4>
                     <address className="text-[#6B7280] not-italic leading-relaxed">
                       {addressLine ? (
                         <>
@@ -229,7 +229,7 @@ export function Contact({contactInfo}: ContactProps) {
                     <Clock className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-[#1A3A52] mb-2">Horarios de Atendimento</h4>
+                    <h4 className="font-semibold text-[#1A3A52] mb-2">Horários de Atendimento</h4>
                     <p className="text-[#6B7280] leading-relaxed">
                       {contactInfo.businessHours.map((businessHour) => (
                         <span key={businessHour._key} className="block">
@@ -289,7 +289,7 @@ export function Contact({contactInfo}: ContactProps) {
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="hidden">
-                  <label htmlFor="website">Nao preencha este campo</label>
+                  <label htmlFor="website">Não preencha este campo</label>
                   <input
                     id="website"
                     name="website"
@@ -383,7 +383,7 @@ export function Contact({contactInfo}: ContactProps) {
                     </p>
                   ) : (
                     <p className="text-xs text-[#6B7280] text-center">
-                      Responderemos em ate 24 horas uteis
+                      Responderemos em até 24 horas úteis
                     </p>
                   )}
                 </div>

@@ -16,10 +16,10 @@ export function Team({doctorProfiles}: TeamProps) {
             </span>
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#1A3A52] mb-6">
-            Conheca os Especialistas
+            Conheça os Especialistas
           </h2>
           <p className="text-lg text-[#6B7280] max-w-2xl mx-auto leading-relaxed">
-            Medicos endocrinologistas com formacao nas melhores instituicoes do pais, dedicados ao
+            Médicos endocrinologistas com formação nas melhores instituições do país, dedicados ao
             seu bem-estar.
           </p>
         </div>
@@ -83,7 +83,7 @@ export function Team({doctorProfiles}: TeamProps) {
                       </div>
                       <div>
                         <p className="text-xs font-semibold text-[#C9A962] uppercase tracking-wide mb-1">
-                          Residencia em Clinica Medica
+                          Residência em Clínica Médica
                         </p>
                         <p className="text-[#2C3E50] font-medium">
                           {doctorProfile.clinicalResidency}
@@ -97,7 +97,7 @@ export function Team({doctorProfiles}: TeamProps) {
                       </div>
                       <div>
                         <p className="text-xs font-semibold text-[#C9A962] uppercase tracking-wide mb-1">
-                          Residencia em Endocrinologia
+                          Residência em Endocrinologia
                         </p>
                         <p className="text-[#2C3E50] font-medium">
                           {doctorProfile.endocrinologyResidency}

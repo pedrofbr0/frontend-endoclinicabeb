@@ -79,7 +79,7 @@ export function ShareArticleButton({
       : feedback === 'shared'
         ? 'Compartilhado'
         : feedback === 'error'
-          ? 'Nao foi possivel copiar'
+          ? 'Não foi possível copiar'
           : 'Compartilhar'
 
   const compactLabel =

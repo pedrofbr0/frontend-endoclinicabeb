@@ -65,7 +65,7 @@ export function Header({contactInfo, hasBlogPosts, logoUrl}: HeaderProps) {
 
             <span className="text-2xl md:text-3xl font-serif font-bold">
               <span className="text-[#C9A962]">Endo</span>
-              <span className="text-[#1A3A52]">Clinica</span>{' '}
+              <span className="text-[#1A3A52]">Clínica</span>{' '}
               <span className="text-[#C9A962]">B&B</span>
             </span>
           </Link>
@@ -185,7 +185,7 @@ export function Header({contactInfo, hasBlogPosts, logoUrl}: HeaderProps) {
               onNavigate={() => setIsMenuOpen(false)}
               className="bg-[#C9A962] text-[#1A3A52] px-6 py-3 rounded-xl hover:bg-[#A08847] transition-all text-center font-semibold min-h-[44px]"
             >
-              Agendar Avaliacao
+              Agendar Avaliação
             </SectionNavLink>
           </nav>
         ) : null}

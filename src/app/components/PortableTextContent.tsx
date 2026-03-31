@@ -6,6 +6,28 @@ interface PortableTextContentProps {
   value: any[]
 }
 
+function resolveTextAlignment(value?: any) {
+  if (value?.textAlignment) {
+    return value.textAlignment
+  }
+
+  if (value?.style === 'alignLeft') return 'left'
+  if (value?.style === 'alignCenter') return 'center'
+  if (value?.style === 'alignRight') return 'right'
+
+  return 'justify'
+}
+
+function getAlignmentClassName(value?: any) {
+  const textAlignment = resolveTextAlignment(value)
+
+  if (textAlignment === 'left') return 'text-left'
+  if (textAlignment === 'center') return 'text-center'
+  if (textAlignment === 'right') return 'text-right'
+
+  return '[text-align:justify]'
+}
+
 const portableTextComponents = {
   types: {
     image: ({value}: {value: any}) => {
@@ -41,13 +63,19 @@ const portableTextComponents = {
     },
   },
   block: {
-    normal: ({children}: {children?: ReactNode}) => (
-      <p className="mb-7 text-[1.08rem] leading-[1.95] text-[#4B5563] [text-align:justify] md:text-[1.16rem]">
+    normal: ({children, value}: {children?: ReactNode; value?: any}) => (
+      <p
+        className={`mb-7 text-[1.08rem] leading-[1.95] text-[#4B5563] md:text-[1.16rem] ${getAlignmentClassName(value)}`}
+      >
         {children}
       </p>
     ),
-    justified: ({children}: {children?: ReactNode}) => (
-      <p className="mb-7 text-[1.08rem] leading-[1.95] text-[#4B5563] [text-align:justify] md:text-[1.16rem]">
+    justified: ({children, value}: {children?: ReactNode; value?: any}) => (
+      <p
+        className={`mb-7 text-[1.08rem] leading-[1.95] text-[#4B5563] md:text-[1.16rem] ${getAlignmentClassName(
+          value,
+        )}`}
+      >
         {children}
       </p>
     ),
@@ -66,22 +94,40 @@ const portableTextComponents = {
         {children}
       </p>
     ),
-    lead: ({children}: {children?: ReactNode}) => (
-      <p className="mb-8 text-[1.2rem] leading-[1.85] text-[#35526B] font-medium md:text-[1.35rem]">
+    lead: ({children, value}: {children?: ReactNode; value?: any}) => (
+      <p
+        className={`mb-8 text-[1.2rem] leading-[1.85] text-[#35526B] font-medium md:text-[1.35rem] ${getAlignmentClassName(value)}`}
+      >
         {children}
       </p>
     ),
-    h1: ({children}: {children?: ReactNode}) => (
-      <h1 className="text-4xl font-serif font-bold text-[#1A3A52] mb-6 mt-12">{children}</h1>
+    h1: ({children, value}: {children?: ReactNode; value?: any}) => (
+      <h1
+        className={`text-4xl font-serif font-bold text-[#1A3A52] mb-6 mt-12 ${getAlignmentClassName(value)}`}
+      >
+        {children}
+      </h1>
     ),
-    h2: ({children}: {children?: ReactNode}) => (
-      <h2 className="text-3xl font-serif font-bold text-[#1A3A52] mb-6 mt-14">{children}</h2>
+    h2: ({children, value}: {children?: ReactNode; value?: any}) => (
+      <h2
+        className={`text-3xl font-serif font-bold text-[#1A3A52] mb-6 mt-14 ${getAlignmentClassName(value)}`}
+      >
+        {children}
+      </h2>
     ),
-    h3: ({children}: {children?: ReactNode}) => (
-      <h3 className="text-2xl font-serif font-bold text-[#1A3A52] mb-4 mt-10">{children}</h3>
+    h3: ({children, value}: {children?: ReactNode; value?: any}) => (
+      <h3
+        className={`text-2xl font-serif font-bold text-[#1A3A52] mb-4 mt-10 ${getAlignmentClassName(value)}`}
+      >
+        {children}
+      </h3>
     ),
-    blockquote: ({children}: {children?: ReactNode}) => (
-      <blockquote className="border-l-4 border-[#C9A962] pl-6 py-2 italic text-xl leading-[1.8] text-[#6B7280] my-10 bg-[#FAFAF8]">
+    blockquote: ({children, value}: {children?: ReactNode; value?: any}) => (
+      <blockquote
+        className={`border-l-4 border-[#C9A962] pl-6 py-2 italic text-xl leading-[1.8] text-[#6B7280] my-10 bg-[#FAFAF8] ${getAlignmentClassName(
+          value,
+        )}`}
+      >
         {children}
       </blockquote>
     ),
