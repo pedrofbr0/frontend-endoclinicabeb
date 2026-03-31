@@ -75,7 +75,7 @@ export function Header({contactInfo, hasBlogPosts, logoUrl}: HeaderProps) {
               sectionId="home"
               className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium"
             >
-              Inicio
+              Início
             </SectionNavLink>
 
             {navLinks.map((navLink) => (
@@ -117,7 +117,7 @@ export function Header({contactInfo, hasBlogPosts, logoUrl}: HeaderProps) {
               sectionId="contato"
               className="bg-[#C9A962] text-[#1A3A52] px-6 py-2.5 rounded-xl hover:bg-[#A08847] transition-all shadow-md hover:shadow-lg font-semibold min-h-[44px] inline-flex items-center"
             >
-              Agendar Avaliacao
+              Agendar Avaliação
             </SectionNavLink>
           </nav>
 
@@ -138,7 +138,7 @@ export function Header({contactInfo, hasBlogPosts, logoUrl}: HeaderProps) {
               onNavigate={() => setIsMenuOpen(false)}
               className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-left font-medium"
             >
-              Inicio
+              Início
             </SectionNavLink>
 
             {navLinks.map((navLink) => (

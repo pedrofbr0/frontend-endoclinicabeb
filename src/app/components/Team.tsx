@@ -71,7 +71,7 @@ export function Team({doctorProfiles}: TeamProps) {
                       </div>
                       <div>
                         <p className="text-xs font-semibold text-[#C9A962] uppercase tracking-wide mb-1">
-                          Formacao
+                          Formação
                         </p>
                         <p className="text-[#2C3E50] font-medium">{doctorProfile.education}</p>
                       </div>
