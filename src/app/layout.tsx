@@ -5,14 +5,24 @@ import {Footer} from './components/Footer'
 import {FloatingWhatsApp} from './components/FloatingWhatsApp'
 import {Header} from './components/Header'
 import {getDoctorProfiles, getSiteSettings, getSiteShellData} from '../lib/sanity.server'
-import {getSiteUrl} from '../lib/sanity'
+import {getSanityImageUrl, getSiteUrl} from '../lib/sanity'
 
 export const revalidate = 60
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = (await getSiteSettings()) || {}
-  const faviconUrl = siteSettings.faviconUrl || '/favicon-blue-background.png'
-  const socialImage = siteSettings.logoUrl || '/logo-beb.png'
+  const faviconUrl =
+    getSanityImageUrl(siteSettings.favicon, {
+      width: 128,
+      height: 128,
+      fit: 'max',
+    }) || '/favicon-blue-background.png'
+  const socialImage =
+    getSanityImageUrl(siteSettings.logo, {
+      width: 1200,
+      height: 630,
+      fit: 'max',
+    }) || '/logo-beb.png'
 
   return {
     metadataBase: new URL(getSiteUrl()),
@@ -49,6 +59,11 @@ export default async function RootLayout({
     getSiteShellData(),
     getDoctorProfiles(),
   ])
+  const logoUrl = getSanityImageUrl(siteSettings.logo, {
+    width: 640,
+    height: 160,
+    fit: 'max',
+  })
 
   return (
     <html lang="pt-BR">
@@ -57,14 +72,14 @@ export default async function RootLayout({
           <Header
             contactInfo={contactInfo}
             hasBlogPosts={hasBlogPosts}
-            logoUrl={siteSettings.logoUrl}
+            logoUrl={logoUrl}
           />
           {children}
           <Footer
             contactInfo={contactInfo}
             doctorProfiles={doctorProfiles}
             hasBlogPosts={hasBlogPosts}
-            logoUrl={siteSettings.logoUrl}
+            logoUrl={logoUrl}
           />
           <FloatingWhatsApp phone={contactInfo?.phone} />
         </div>

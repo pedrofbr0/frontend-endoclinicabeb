@@ -1,5 +1,5 @@
 import {Award, Briefcase, GraduationCap} from 'lucide-react'
-import type {DoctorProfile} from '../../lib/sanity'
+import {getSanityImageUrl, type DoctorProfile} from '../../lib/sanity'
 
 interface TeamProps {
   doctorProfiles: DoctorProfile[]
@@ -26,23 +26,24 @@ export function Team({doctorProfiles}: TeamProps) {
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {doctorProfiles.map((doctorProfile) => {
-            const isDrRui = doctorProfile.name?.includes('Rui')
-            const customImageStyle = isDrRui
-              ? {transform: 'scale(1.35) translateX(-13%)', objectPosition: 'center 15%'}
-              : {objectPosition: 'center 7%'}
+            const imageUrl = getSanityImageUrl(doctorProfile.cardImage || doctorProfile.image, {
+              width: 1600,
+              height: 1000,
+              fit: 'crop',
+            })
 
             return (
               <article
                 key={`${doctorProfile.name}-${doctorProfile.licenseNumber}`}
                 className="bg-[#FAFAF8] rounded-2xl overflow-hidden border border-[rgba(26,58,82,0.08)] hover:border-[#C9A962]/30 hover:shadow-2xl transition-all duration-300 group"
               >
-                <div className="relative overflow-hidden h-80 md:h-96">
-                  {doctorProfile.imageUrl ? (
+                <div className="relative overflow-hidden aspect-[16/10]">
+                  {imageUrl ? (
                     <img
-                      src={`${doctorProfile.imageUrl}?w=1200&auto=format&q=75`}
+                      src={imageUrl}
                       alt={`${doctorProfile.name} - ${doctorProfile.specialty}`}
                       className="w-full h-full group-hover:scale-105 transition-transform duration-500"
-                      style={{objectFit: 'cover', ...customImageStyle}}
+                      style={{objectFit: 'cover'}}
                     />
                   ) : (
                     <div className="w-full h-full bg-slate-200 animate-pulse" />

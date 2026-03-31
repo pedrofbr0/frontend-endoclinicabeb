@@ -31,6 +31,13 @@ const contactInfoQuery = `*[_type == "contato"][0]{
   }
 }`
 
+const imageProjection = `{
+  asset,
+  crop,
+  hotspot,
+  alt
+}`
+
 const doctorProfilesQuery = `*[_type == "informacoesMedicos"] | order(_createdAt asc){
   "name": nome,
   "licenseNumber": crm,
@@ -38,13 +45,14 @@ const doctorProfilesQuery = `*[_type == "informacoesMedicos"] | order(_createdAt
   "education": coalesce(formacao, "Universidade de Uberaba (Uniube)"),
   "clinicalResidency": residencyClinica,
   "endocrinologyResidency": residencyEndo,
-  "imageUrl": imagem.asset->url
+  "cardImage": coalesce(imagemCard${imageProjection}, imagem${imageProjection}),
+  "image": imagem${imageProjection}
 }`
 
 const siteSettingsQuery = `*[_type == "configuracoesSite"][0]{
-  "logoUrl": logo.asset->url,
-  "faviconUrl": favicon.asset->url,
-  "heroImageUrl": heroImage.asset->url
+  "logo": logo${imageProjection},
+  "favicon": favicon${imageProjection},
+  "heroImage": heroImage${imageProjection}
 }`
 
 const postProjection = `
@@ -55,8 +63,8 @@ const postProjection = `
   _createdAt,
   "useRealDate": usarDataReal,
   "displayDate": dataExibicao,
-  "coverImage": imagemCapa,
-  "cardImage": coalesce(imagemCard, imagemCapa),
+  "coverImage": imagemCapa${imageProjection},
+  "cardImage": coalesce(imagemCard${imageProjection}, imagemCapa${imageProjection}),
   "excerpt": pt::text(conteudo)
 `
 

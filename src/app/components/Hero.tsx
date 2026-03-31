@@ -76,15 +76,15 @@ export function Hero({heroImageUrl}: HeroProps) {
           </div>
 
           <div className="order-1 lg:order-2">
-            <div className="rounded-2xl overflow-hidden shadow-2xl relative">
+            <div className="rounded-2xl overflow-hidden shadow-2xl relative aspect-[4/5]">
               {heroImageUrl ? (
                 <img
-                  src={`${heroImageUrl}?w=1600&auto=format&q=75`}
-                  className="w-full h-[500px] md:h-[600px] lg:h-[750px] object-cover object-center"
+                  src={heroImageUrl}
+                  className="w-full h-full object-cover object-center"
                   alt="Equipe medica da EndoClinica B&B"
                 />
               ) : (
-                <div className="w-full h-[500px] md:h-[600px] lg:h-[750px] bg-slate-200 animate-pulse" />
+                <div className="w-full h-full bg-slate-200 animate-pulse" />
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-[#1A3A52]/20 to-transparent" />
             </div>

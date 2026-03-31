@@ -7,6 +7,7 @@ import {Specialties} from './components/Specialties'
 import {Team} from './components/Team'
 import {ValueProposition} from './components/ValueProposition'
 import {getDoctorProfiles, getLatestPosts, getSiteShellData} from '../lib/sanity.server'
+import {getSanityImageUrl} from '../lib/sanity'
 
 export const metadata: Metadata = {
   title: 'Endocrinologia de Alto Padrão',
@@ -18,11 +19,16 @@ export default async function HomePage() {
   const [{contactInfo, siteSettings, hasBlogPosts}, doctorProfiles, latestPosts] = await Promise.all(
     [getSiteShellData(), getDoctorProfiles(), getLatestPosts(3)],
   )
+  const heroImageUrl = getSanityImageUrl(siteSettings.heroImage, {
+    width: 1200,
+    height: 1500,
+    fit: 'crop',
+  })
 
   return (
     <main>
       <HashScrollHandler />
-      <Hero heroImageUrl={siteSettings.heroImageUrl} />
+      <Hero heroImageUrl={heroImageUrl} />
       <ValueProposition />
       <Specialties />
       <Team doctorProfiles={doctorProfiles} />

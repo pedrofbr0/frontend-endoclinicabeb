@@ -96,9 +96,9 @@ export interface ContactInfo {
 }
 
 export interface SiteConfigData {
-  logoUrl?: string
-  faviconUrl?: string
-  heroImageUrl?: string
+  logo?: SanityImageSource
+  favicon?: SanityImageSource
+  heroImage?: SanityImageSource
 }
 
 export interface DoctorProfile {
@@ -108,7 +108,8 @@ export interface DoctorProfile {
   education: string
   clinicalResidency?: string
   endocrinologyResidency?: string
-  imageUrl?: string
+  cardImage?: SanityImageSource
+  image?: SanityImageSource
 }
 
 export interface SanityPostRecord {
