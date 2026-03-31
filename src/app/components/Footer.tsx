@@ -106,7 +106,7 @@ export function Footer({contactInfo, doctorProfiles, hasBlogPosts, logoUrl}: Foo
                   sectionId="equipe"
                   className="hover:text-[#C9A962] transition-colors text-sm"
                 >
-                  Nossa Equipe
+                  Equipe
                 </SectionNavLink>
               </li>
               {hasBlogPosts ? (
