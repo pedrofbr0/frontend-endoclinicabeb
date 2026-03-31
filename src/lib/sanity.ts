@@ -14,8 +14,63 @@ export const sanityClient = createClient({
 
 const imageBuilder = createImageUrlBuilder(sanityClient)
 
-export function urlFor(source: any) {
+export interface SanityImageSource {
+  asset?: {
+    _ref?: string
+    _type?: 'reference'
+  }
+  crop?: {
+    top?: number
+    bottom?: number
+    left?: number
+    right?: number
+  }
+  hotspot?: {
+    x?: number
+    y?: number
+    height?: number
+    width?: number
+  }
+  alt?: string
+}
+
+export function urlFor(source: SanityImageSource | any) {
   return imageBuilder.image(source)
+}
+
+export function hasSanityImageAsset(source?: SanityImageSource | null) {
+  return Boolean(source?.asset?._ref)
+}
+
+export function getSanityImageUrl(
+  source?: SanityImageSource | null,
+  options?: {
+    width?: number
+    height?: number
+    fit?: 'crop' | 'max'
+  },
+) {
+  if (!hasSanityImageAsset(source)) {
+    return ''
+  }
+
+  let builder = urlFor(source).auto('format')
+
+  if (options?.width) {
+    builder = builder.width(options.width)
+  }
+
+  if (options?.height) {
+    builder = builder.height(options.height)
+  }
+
+  if (options?.fit === 'max') {
+    builder = builder.fit('max')
+  } else if (options?.height) {
+    builder = builder.fit('crop')
+  }
+
+  return builder.url()
 }
 
 export interface BusinessHour {
@@ -64,7 +119,8 @@ export interface SanityPostRecord {
   _createdAt: string
   useRealDate?: boolean
   displayDate?: string
-  coverImageUrl?: string
+  coverImage?: SanityImageSource
+  cardImage?: SanityImageSource
   excerpt?: string
   content?: any[]
 }
@@ -75,7 +131,8 @@ export interface BlogPostSummary {
   slug: string
   author: string
   publishedAt: string
-  coverImageUrl?: string
+  coverImage?: SanityImageSource
+  cardImage?: SanityImageSource
   excerpt: string
 }
 
@@ -126,7 +183,8 @@ export function mapBlogPost(post: SanityPostRecord): BlogPostSummary {
     slug: post.slug,
     author: post.author,
     publishedAt: resolveDisplayDate(post),
-    coverImageUrl: post.coverImageUrl,
+    coverImage: post.coverImage,
+    cardImage: post.cardImage || post.coverImage,
     excerpt: truncateText(post.excerpt || ''),
   }
 }

@@ -42,34 +42,68 @@ const portableTextComponents = {
   },
   block: {
     normal: ({children}: {children?: ReactNode}) => (
-      <p className="mb-6 text-lg text-[#4B5563] leading-relaxed">{children}</p>
+      <p className="mb-7 text-[1.08rem] leading-[1.95] text-[#4B5563] [text-align:justify] md:text-[1.16rem]">
+        {children}
+      </p>
+    ),
+    justified: ({children}: {children?: ReactNode}) => (
+      <p className="mb-7 text-[1.08rem] leading-[1.95] text-[#4B5563] [text-align:justify] md:text-[1.16rem]">
+        {children}
+      </p>
+    ),
+    alignLeft: ({children}: {children?: ReactNode}) => (
+      <p className="mb-7 text-[1.08rem] leading-[1.9] text-left text-[#4B5563] md:text-[1.16rem]">
+        {children}
+      </p>
+    ),
+    alignCenter: ({children}: {children?: ReactNode}) => (
+      <p className="mb-7 text-[1.08rem] leading-[1.9] text-center text-[#4B5563] md:text-[1.16rem]">
+        {children}
+      </p>
+    ),
+    alignRight: ({children}: {children?: ReactNode}) => (
+      <p className="mb-7 text-[1.08rem] leading-[1.9] text-right text-[#4B5563] md:text-[1.16rem]">
+        {children}
+      </p>
+    ),
+    lead: ({children}: {children?: ReactNode}) => (
+      <p className="mb-8 text-[1.2rem] leading-[1.85] text-[#35526B] font-medium md:text-[1.35rem]">
+        {children}
+      </p>
     ),
     h1: ({children}: {children?: ReactNode}) => (
       <h1 className="text-4xl font-serif font-bold text-[#1A3A52] mb-6 mt-12">{children}</h1>
     ),
     h2: ({children}: {children?: ReactNode}) => (
-      <h2 className="text-3xl font-serif font-bold text-[#1A3A52] mb-6 mt-12">{children}</h2>
+      <h2 className="text-3xl font-serif font-bold text-[#1A3A52] mb-6 mt-14">{children}</h2>
     ),
     h3: ({children}: {children?: ReactNode}) => (
-      <h3 className="text-2xl font-serif font-bold text-[#1A3A52] mb-4 mt-8">{children}</h3>
+      <h3 className="text-2xl font-serif font-bold text-[#1A3A52] mb-4 mt-10">{children}</h3>
     ),
     blockquote: ({children}: {children?: ReactNode}) => (
-      <blockquote className="border-l-4 border-[#C9A962] pl-6 py-2 italic text-xl text-[#6B7280] my-8 bg-[#FAFAF8]">
+      <blockquote className="border-l-4 border-[#C9A962] pl-6 py-2 italic text-xl leading-[1.8] text-[#6B7280] my-10 bg-[#FAFAF8]">
         {children}
       </blockquote>
     ),
   },
   list: {
     bullet: ({children}: {children?: ReactNode}) => (
-      <ul className="list-disc pl-8 mb-6 text-lg text-[#4B5563] space-y-2">{children}</ul>
+      <ul className="list-disc pl-8 mb-6 text-[1.08rem] leading-[1.85] text-[#4B5563] space-y-2">
+        {children}
+      </ul>
     ),
     number: ({children}: {children?: ReactNode}) => (
-      <ol className="list-decimal pl-8 mb-6 text-lg text-[#4B5563] space-y-2">{children}</ol>
+      <ol className="list-decimal pl-8 mb-6 text-[1.08rem] leading-[1.85] text-[#4B5563] space-y-2">
+        {children}
+      </ol>
     ),
   },
   marks: {
     strong: ({children}: {children?: ReactNode}) => (
       <strong className="font-bold text-[#1A3A52]">{children}</strong>
+    ),
+    em: ({children}: {children?: ReactNode}) => (
+      <em className="italic text-[#35526B]">{children}</em>
     ),
     link: ({children, value}: {children?: ReactNode; value?: {href?: string}}) => {
       const href = value?.href || '#'

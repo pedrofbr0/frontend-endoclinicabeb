@@ -3,7 +3,13 @@ import Link from 'next/link'
 import {notFound} from 'next/navigation'
 import {PortableTextContent} from '../../components/PortableTextContent'
 import {ShareArticleButton} from '../../components/ShareArticleButton'
-import {buildAbsoluteUrl, formatBrazilianDate, truncateText} from '../../../lib/sanity'
+import {
+  buildAbsoluteUrl,
+  formatBrazilianDate,
+  getSanityImageUrl,
+  hasSanityImageAsset,
+  truncateText,
+} from '../../../lib/sanity'
 import {getPostBySlug} from '../../../lib/sanity.server'
 
 interface BlogPostPageProps {
@@ -26,6 +32,7 @@ export async function generateMetadata({params}: BlogPostPageProps): Promise<Met
 
   const description = truncateText(post.excerpt || post.title, 160)
   const canonicalUrl = buildAbsoluteUrl(`/blog/${post.slug}`)
+  const socialImageUrl = getSanityImageUrl(post.coverImage, {width: 1200, height: 630})
 
   return {
     title: post.title,
@@ -40,10 +47,10 @@ export async function generateMetadata({params}: BlogPostPageProps): Promise<Met
       url: canonicalUrl,
       authors: [post.author],
       publishedTime: post.publishedAt,
-      images: post.coverImageUrl
+      images: socialImageUrl
         ? [
             {
-              url: post.coverImageUrl,
+              url: socialImageUrl,
               alt: post.title,
             },
           ]
@@ -53,7 +60,7 @@ export async function generateMetadata({params}: BlogPostPageProps): Promise<Met
       card: 'summary_large_image',
       title: post.title,
       description,
-      images: post.coverImageUrl ? [post.coverImageUrl] : ['/logo-beb.png'],
+      images: socialImageUrl ? [socialImageUrl] : ['/logo-beb.png'],
     },
   }
 }
@@ -76,9 +83,13 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
           &larr; Voltar para o blog
         </Link>
 
-        {post.coverImageUrl ? (
-          <div className="w-full h-[300px] md:h-[450px] rounded-2xl overflow-hidden mb-12 shadow-lg">
-            <img src={post.coverImageUrl} alt={post.title} className="w-full h-full object-cover" />
+        {hasSanityImageAsset(post.coverImage) ? (
+          <div className="w-full rounded-2xl overflow-hidden mb-12 shadow-lg bg-[#FAFAF8] border border-[rgba(26,58,82,0.08)]">
+            <img
+              src={getSanityImageUrl(post.coverImage, {width: 1600})}
+              alt={post.title}
+              className="w-full h-auto max-h-[560px] object-contain"
+            />
           </div>
         ) : null}
 
@@ -103,7 +114,7 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
           </div>
         </header>
 
-        <div className="prose-custom max-w-3xl mx-auto">
+        <div className="prose-custom max-w-[780px] mx-auto">
           <PortableTextContent value={post.content} />
         </div>
       </div>

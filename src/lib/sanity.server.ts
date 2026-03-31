@@ -55,7 +55,8 @@ const postProjection = `
   _createdAt,
   "useRealDate": usarDataReal,
   "displayDate": dataExibicao,
-  "coverImageUrl": imagemCapa.asset->url,
+  "coverImage": imagemCapa,
+  "cardImage": coalesce(imagemCard, imagemCapa),
   "excerpt": pt::text(conteudo)
 `
 

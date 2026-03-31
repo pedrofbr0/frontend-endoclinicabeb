@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import {formatBrazilianDate, type BlogPostSummary} from '../../lib/sanity'
-import {ShareArticleButton} from './ShareArticleButton'
+import type {BlogPostSummary} from '../../lib/sanity'
+import {BlogPostCard} from './BlogPostCard'
 
 interface BlogPreviewProps {
   posts: BlogPostSummary[]
@@ -29,54 +29,7 @@ export function BlogPreview({posts}: BlogPreviewProps) {
 
         <div className="grid md:grid-cols-3 gap-8">
           {posts.map((post) => (
-            <article
-              key={post._id}
-              className="bg-white rounded-2xl overflow-hidden shadow-sm border border-[rgba(26,58,82,0.08)] hover:shadow-lg transition-all flex flex-col group"
-            >
-              {post.coverImageUrl ? (
-                <div className="h-48 overflow-hidden">
-                  <img
-                    src={post.coverImageUrl}
-                    alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-              ) : (
-                <div className="h-48 bg-[#1A3A52]/5 flex items-center justify-center">
-                  <span className="text-[#C9A962] font-serif italic opacity-50 text-xl">
-                    EndoClinica B&B
-                  </span>
-                </div>
-              )}
-
-              <div className="p-6 flex-1 flex flex-col">
-                <div className="flex-1">
-                  <p className="text-sm text-[#C9A962] font-semibold mb-3 tracking-wide">
-                    {formatBrazilianDate(post.publishedAt)} . {post.author}
-                  </p>
-                  <h3 className="text-xl font-bold text-[#1A3A52] mb-4 line-clamp-2">
-                    {post.title}
-                  </h3>
-                  {post.excerpt ? (
-                    <p className="text-[#6B7280] leading-relaxed line-clamp-3">{post.excerpt}</p>
-                  ) : null}
-                </div>
-                <div className="mt-4 flex items-center justify-between gap-3 border-t border-gray-100 pt-4">
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="inline-flex items-center text-[#1A3A52] font-semibold hover:text-[#C9A962] transition-colors"
-                  >
-                    Ler artigo completo &rarr;
-                  </Link>
-                  <ShareArticleButton
-                    title={post.title}
-                    text={post.excerpt}
-                    url={`/blog/${post.slug}`}
-                    variant="icon"
-                  />
-                </div>
-              </div>
-            </article>
+            <BlogPostCard key={post._id} post={post} variant="home" />
           ))}
         </div>
 
