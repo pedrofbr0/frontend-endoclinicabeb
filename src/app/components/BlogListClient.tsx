@@ -58,7 +58,7 @@ export function BlogListClient({posts}: BlogListClientProps) {
                   type="text"
                   value={searchTerm}
                   onChange={(event) => setSearchTerm(event.target.value)}
-                  placeholder="Pesquisar por titulo, assunto ou medico..."
+                  placeholder="Pesquisar por título, assunto ou autor..."
                   className="w-full pl-11 pr-4 py-4 rounded-xl border border-gray-200 focus:border-[#C9A962] focus:ring-2 focus:ring-[#C9A962]/20 outline-none transition-all shadow-sm"
                 />
               </div>
