@@ -1,6 +1,3 @@
-'use client'
-
-import {useState} from 'react'
 import {Activity, Bone, Dumbbell, Pill, Scale, TestTube} from 'lucide-react'
 
 const specialties = [
@@ -78,8 +75,6 @@ const specialties = [
 ]
 
 export function Specialties() {
-  const [activeCard, setActiveCard] = useState<number | null>(null)
-
   return (
     <section id="especialidades" className="py-20 md:py-28 bg-gradient-to-b from-[#FAFAF8] to-white">
       <div className="container mx-auto px-4">
@@ -99,34 +94,19 @@ export function Specialties() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {specialties.map((specialty, index) => {
+          {specialties.map((specialty) => {
             const Icon = specialty.icon
-            const isActive = activeCard === index
 
             return (
               <div
                 key={specialty.title}
-                className={`bg-white p-8 rounded-2xl border transition-all duration-300 cursor-pointer ${
-                  isActive
-                    ? 'border-[#C9A962] shadow-2xl scale-105'
-                    : 'border-[rgba(26,58,82,0.08)] hover:border-[#C9A962]/30 hover:shadow-xl'
-                }`}
-                onMouseEnter={() => setActiveCard(index)}
-                onMouseLeave={() => setActiveCard(null)}
+                className="group flex h-full flex-col rounded-2xl border border-[rgba(26,58,82,0.08)] bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#C9A962]/25 hover:shadow-xl"
               >
                 <div className="mb-6">
                   <div
-                    className={`w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                      isActive
-                        ? 'bg-gradient-to-br from-[#C9A962] to-[#A08847] scale-110'
-                        : 'bg-[#E3D5B7]/30'
-                    }`}
+                    className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#E3D5B7]/30 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-[#C9A962] group-hover:to-[#A08847]"
                   >
-                    <Icon
-                      className={`w-7 h-7 transition-colors ${
-                        isActive ? 'text-white' : 'text-[#1A3A52]'
-                      }`}
-                    />
+                    <Icon className="h-7 w-7 text-[#1A3A52] transition-colors group-hover:text-white" />
                   </div>
                 </div>
 
@@ -134,20 +114,18 @@ export function Specialties() {
                   {specialty.title}
                 </h3>
 
-                <p className="text-[#6B7280] leading-relaxed mb-4">{specialty.description}</p>
+                <p className="mb-5 text-[#6B7280] leading-relaxed">{specialty.description}</p>
 
-                {isActive ? (
-                  <div className="mt-4 pt-4 border-t border-[rgba(26,58,82,0.08)] animate-fadeIn">
-                    <ul className="space-y-2">
-                      {specialty.details.map((detail) => (
-                        <li key={detail} className="flex items-start gap-2 text-sm text-[#6B7280]">
-                          <div className="w-1.5 h-1.5 bg-[#C9A962] rounded-full mt-1.5 flex-shrink-0" />
-                          <span>{detail}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
+                <div className="mt-auto border-t border-[rgba(26,58,82,0.08)] pt-4">
+                  <ul className="space-y-2.5">
+                    {specialty.details.map((detail) => (
+                      <li key={detail} className="flex items-start gap-2 text-sm text-[#6B7280]">
+                        <div className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#C9A962]" />
+                        <span>{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             )
           })}

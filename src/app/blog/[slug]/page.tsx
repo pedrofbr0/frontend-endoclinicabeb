@@ -3,6 +3,7 @@ import Link from 'next/link'
 import {notFound} from 'next/navigation'
 import {PortableTextContent} from '../../components/PortableTextContent'
 import {ShareArticleButton} from '../../components/ShareArticleButton'
+import {ScrollToTopButton} from '../../components/ScrollToTopButton'
 import {
   buildAbsoluteUrl,
   formatBrazilianDate,
@@ -116,6 +117,17 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
 
         <div className="prose-custom max-w-[780px] mx-auto">
           <PortableTextContent value={post.content} />
+        </div>
+
+        <div className="mx-auto mt-16 flex max-w-[780px] flex-col items-center justify-center gap-4 border-t border-[rgba(26,58,82,0.08)] pt-8 sm:flex-row sm:justify-between">
+          <Link
+            href="/blog"
+            className="inline-flex min-h-[46px] items-center justify-center rounded-xl bg-[#1A3A52] px-5 py-3 font-semibold text-white transition-all hover:bg-[#102636] hover:shadow-md"
+          >
+            &larr; Voltar para o blog
+          </Link>
+
+          <ScrollToTopButton />
         </div>
       </div>
     </article>

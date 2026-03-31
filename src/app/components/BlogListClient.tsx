@@ -5,6 +5,7 @@ import {Search} from 'lucide-react'
 import {useDeferredValue, useState} from 'react'
 import type {BlogPostSummary} from '../../lib/sanity'
 import {BlogPostCard} from './BlogPostCard'
+import {ScrollToTopButton} from './ScrollToTopButton'
 
 interface BlogListClientProps {
   posts: BlogPostSummary[]
@@ -78,6 +79,17 @@ export function BlogListClient({posts}: BlogListClientProps) {
           {filteredPosts.map((post) => (
             <BlogPostCard key={post._id} post={post} />
           ))}
+        </div>
+
+        <div className="mt-14 flex flex-col items-center justify-center gap-4 border-t border-[rgba(26,58,82,0.08)] pt-8 sm:flex-row">
+          <Link
+            href="/"
+            className="inline-flex min-h-[46px] items-center justify-center rounded-xl bg-[#1A3A52] px-5 py-3 font-semibold text-white transition-all hover:bg-[#102636] hover:shadow-md"
+          >
+            Voltar para o início
+          </Link>
+
+          <ScrollToTopButton />
         </div>
       </div>
     </div>

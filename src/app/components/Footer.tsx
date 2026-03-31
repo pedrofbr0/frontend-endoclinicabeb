@@ -109,14 +109,6 @@ export function Footer({contactInfo, doctorProfiles, hasBlogPosts, logoUrl}: Foo
                   Nossa Equipe
                 </SectionNavLink>
               </li>
-              <li>
-                <SectionNavLink
-                  sectionId="contato"
-                  className="hover:text-[#C9A962] transition-colors text-sm"
-                >
-                  Contato
-                </SectionNavLink>
-              </li>
               {hasBlogPosts ? (
                 <li>
                   <SectionNavLink
@@ -127,6 +119,14 @@ export function Footer({contactInfo, doctorProfiles, hasBlogPosts, logoUrl}: Foo
                   </SectionNavLink>
                 </li>
               ) : null}
+              <li>
+                <SectionNavLink
+                  sectionId="contato"
+                  className="hover:text-[#C9A962] transition-colors text-sm"
+                >
+                  Contato
+                </SectionNavLink>
+              </li>
               {hasBlogPosts ? (
                 <li>
                   <Link href="/blog" className="hover:text-[#C9A962] transition-colors text-sm">

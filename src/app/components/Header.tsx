@@ -99,6 +99,13 @@ export function Header({contactInfo, hasBlogPosts, logoUrl}: HeaderProps) {
               </SectionNavLink>
             ) : null}
 
+            <SectionNavLink
+              sectionId="contato"
+              className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium"
+            >
+              Contato
+            </SectionNavLink>
+
             {hasBlogPosts ? (
               <Link
                 href="/blog"
@@ -107,13 +114,6 @@ export function Header({contactInfo, hasBlogPosts, logoUrl}: HeaderProps) {
                 Blog
               </Link>
             ) : null}
-
-            <SectionNavLink
-              sectionId="contato"
-              className="text-[#2C3E50] hover:text-[#C9A962] transition-colors text-[15px] font-medium"
-            >
-              Contato
-            </SectionNavLink>
 
             <SectionNavLink
               sectionId="contato"
