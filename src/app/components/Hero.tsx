@@ -22,7 +22,7 @@ export function Hero({heroImageUrl}: HeroProps) {
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#1A3A52] mb-6 leading-tight">
-              Saúde endócrina: cuidado em dobro no seu acompanhamento metabólico
+              Saúde metabólica: cuidado em dobro no seu acompanhamento endocrinológico
             </h1>
 
             <p className="text-lg md:text-xl text-[#6B7280] mb-8 leading-relaxed font-light">

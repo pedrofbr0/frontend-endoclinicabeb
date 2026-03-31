@@ -57,7 +57,6 @@ const specialties = [
       'Performance e recuperação',
       'Composição corporal',
       'Prevenção de lesões',
-      'Nutrição esportiva',
     ],
   },
   {
