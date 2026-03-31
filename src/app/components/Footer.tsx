@@ -27,13 +27,15 @@ export function Footer({contactInfo, doctorProfiles, hasBlogPosts, logoUrl}: Foo
           <div>
             <div className="flex items-center gap-3 mb-4">
               {logoUrl ? (
-                <img
-                  src={logoUrl}
-                  alt="Logo da clinica"
-                  className="h-6 md:h-8 w-auto object-contain invert brightness-0"
-                />
+                <div className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center shrink-0">
+                  <img
+                    src={logoUrl}
+                    alt="Logo da clinica"
+                    className="h-full w-full object-contain invert brightness-0"
+                  />
+                </div>
               ) : null}
-              <h3 className="text-2xl md:text-3xl font-serif font-bold">
+              <h3 className="text-lg sm:text-2xl md:text-3xl font-serif font-bold leading-none whitespace-nowrap">
                 <span className="text-[#C9A962]">Endo</span>
                 <span className="text-white">Clínica</span>{' '}
                 <span className="text-[#C9A962]">B&B</span>

@@ -60,7 +60,7 @@ export default async function RootLayout({
     getDoctorProfiles(),
   ])
   const logoUrl = getSanityImageUrl(siteSettings.logo, {
-    width: 640,
+    width: 160,
     height: 160,
     fit: 'max',
   })

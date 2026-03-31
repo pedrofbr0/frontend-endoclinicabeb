@@ -54,16 +54,18 @@ export function Header({contactInfo, hasBlogPosts, logoUrl}: HeaderProps) {
 
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="cursor-pointer text-left flex items-center gap-3">
+          <Link href="/" className="cursor-pointer text-left flex items-center gap-2 md:gap-3 min-w-0">
             {logoUrl ? (
-              <img
-                src={logoUrl}
-                alt="Logo da EndoClinica B&B"
-                className="h-6 md:h-8 w-auto object-contain"
-              />
+              <div className="h-8 w-8 md:h-10 md:w-10 shrink-0 flex items-center justify-center">
+                <img
+                  src={logoUrl}
+                  alt="Logo da EndoClinica B&B"
+                  className="h-full w-full object-contain"
+                />
+              </div>
             ) : null}
 
-            <span className="text-2xl md:text-3xl font-serif font-bold">
+            <span className="text-lg sm:text-2xl md:text-3xl font-serif font-bold leading-none whitespace-nowrap">
               <span className="text-[#C9A962]">Endo</span>
               <span className="text-[#1A3A52]">Clínica</span>{' '}
               <span className="text-[#C9A962]">B&B</span>
