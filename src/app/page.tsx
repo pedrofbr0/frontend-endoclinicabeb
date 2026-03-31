@@ -9,7 +9,7 @@ import {ValueProposition} from './components/ValueProposition'
 import {getDoctorProfiles, getLatestPosts, getSiteShellData} from '../lib/sanity.server'
 
 export const metadata: Metadata = {
-  title: 'Endocrinologia de Alto Padrao',
+  title: 'Endocrinologia de Alto Padrão',
   description:
     'Atendimento em endocrinologia com foco em emagrecimento, diabetes, reposição hormonal, tireoide e metabolismo ósseo.',
 }
