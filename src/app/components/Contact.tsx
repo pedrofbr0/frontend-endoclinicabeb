@@ -357,7 +357,7 @@ export function Contact({contactInfo}: ContactProps) {
                     required
                     rows={4}
                     className="w-full px-4 py-3.5 bg-white border border-[rgba(26,58,82,0.1)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C9A962] transition-all resize-none"
-                    placeholder="Como podemos ajuda-lo?"
+                    placeholder="Como podemos ajudá-lo?"
                   />
                 </div>
                 <button
