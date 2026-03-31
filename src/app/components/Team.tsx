@@ -26,11 +26,18 @@ export function Team({doctorProfiles}: TeamProps) {
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {doctorProfiles.map((doctorProfile) => {
-            const imageUrl = getSanityImageUrl(doctorProfile.cardImage || doctorProfile.image, {
+            const cardImageSource = doctorProfile.cardImage || doctorProfile.image
+            const desktopImageUrl = getSanityImageUrl(cardImageSource, {
               width: 1600,
               height: 1000,
               fit: 'crop',
             })
+            const mobileImageUrl = getSanityImageUrl(cardImageSource, {
+              width: 1200,
+              height: 900,
+              fit: 'crop',
+            })
+            const imageUrl = desktopImageUrl || mobileImageUrl
 
             return (
               <article
@@ -39,12 +46,17 @@ export function Team({doctorProfiles}: TeamProps) {
               >
                 <div className="relative overflow-hidden aspect-[4/3] sm:aspect-[16/10]">
                   {imageUrl ? (
-                    <img
-                      src={imageUrl}
-                      alt={`${doctorProfile.name} - ${doctorProfile.specialty}`}
-                      className="w-full h-full group-hover:scale-105 transition-transform duration-500"
-                      style={{objectFit: 'cover'}}
-                    />
+                    <picture className="block w-full h-full">
+                      {mobileImageUrl ? (
+                        <source media="(max-width: 639px)" srcSet={mobileImageUrl} />
+                      ) : null}
+                      <img
+                        src={imageUrl}
+                        alt={`${doctorProfile.name} - ${doctorProfile.specialty}`}
+                        className="w-full h-full group-hover:scale-105 transition-transform duration-500"
+                        style={{objectFit: 'cover'}}
+                      />
+                    </picture>
                   ) : (
                     <div className="w-full h-full bg-slate-200 animate-pulse" />
                   )}
