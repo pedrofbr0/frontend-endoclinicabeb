@@ -47,6 +47,9 @@ export async function generateMetadata(): Promise<Metadata> {
       card: 'summary_large_image',
       images: [socialImage],
     },
+    verification: {
+      google: 'Fh45CElT353VdDEbTmpra9w33LF7tp8OTdnnuENEoTQ',
+    },
   }
 }
 
