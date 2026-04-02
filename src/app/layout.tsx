@@ -64,10 +64,52 @@ export default async function RootLayout({
     height: 160,
     fit: 'max',
   })
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalBusiness',
+    name: 'EndoClínica B&B',
+    url: getSiteUrl(),
+    description:
+      'Clínica de endocrinologia com foco em emagrecimento, diabetes, reposição hormonal, tireoide e metabolismo ósseo.',
+    inLanguage: 'pt-BR',
+    ...(logoUrl ? {logo: logoUrl} : {}),
+    ...(contactInfo?.phone
+      ? {
+          telephone: contactInfo.phone,
+          contactPoint: [
+            {
+              '@type': 'ContactPoint',
+              contactType: 'customer service',
+              telephone: contactInfo.phone,
+            },
+          ],
+        }
+      : {}),
+    ...(contactInfo?.email ? {email: contactInfo.email} : {}),
+    ...(contactInfo?.city
+      ? {
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: [contactInfo?.street, contactInfo?.number]
+              .filter(Boolean)
+              .join(', '),
+            ...(contactInfo?.city ? {addressLocality: contactInfo.city} : {}),
+            ...(contactInfo?.state ? {addressRegion: contactInfo.state} : {}),
+            ...(contactInfo?.zipCode ? {postalCode: contactInfo.zipCode} : {}),
+            addressCountry: 'BR',
+          },
+        }
+      : {}),
+    sameAs: [contactInfo?.instagram, contactInfo?.facebook, contactInfo?.linkedin].filter(Boolean),
+  }
 
   return (
     <html lang="pt-BR">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{__html: JSON.stringify(organizationSchema)}}
+        />
         <div className="min-h-screen bg-[#FAFAF8]">
           <Header
             contactInfo={contactInfo}

@@ -1,4 +1,5 @@
 import type {Metadata} from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import {notFound} from 'next/navigation'
 import {PortableTextContent} from '../../components/PortableTextContent'
@@ -81,9 +82,28 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
     post.showDate ? formatBrazilianDate(post.publishedAt) : '',
     post.showAuthor && post.author ? `Por ${post.author}` : '',
   ].filter(Boolean)
+  const description = truncateText(post.excerpt || post.title, 160)
+  const canonicalUrl = buildAbsoluteUrl(`/blog/${post.slug}`)
+  const socialImageUrl = getSanityImageUrl(post.coverImage, {width: 1200, height: 630})
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description,
+    mainEntityOfPage: canonicalUrl,
+    ...(post.showDate ? {datePublished: post.publishedAt} : {}),
+    ...(post.showAuthor && post.author
+      ? {author: {'@type': 'Person', name: post.author}}
+      : {}),
+    ...(socialImageUrl ? {image: [socialImageUrl]} : {}),
+  }
 
   return (
     <article className="pt-32 pb-24 min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{__html: JSON.stringify(articleSchema)}}
+      />
       <div className="max-w-4xl mx-auto px-4">
         <Link
           href="/blog"
@@ -94,9 +114,11 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
 
         {hasSanityImageAsset(post.coverImage) ? (
           <div className="w-full rounded-2xl overflow-hidden mb-12 shadow-lg bg-[#FAFAF8] border border-[rgba(26,58,82,0.08)]">
-            <img
+            <Image
               src={getSanityImageUrl(post.coverImage, {width: 1600})}
               alt={post.title}
+              width={1600}
+              height={900}
               className="w-full h-auto max-h-[560px] object-contain"
             />
           </div>

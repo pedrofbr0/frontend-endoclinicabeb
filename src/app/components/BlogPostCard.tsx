@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import {
   formatBrazilianDate,
@@ -32,9 +33,11 @@ export function BlogPostCard({post, variant = 'listing'}: BlogPostCardProps) {
     >
       {hasSanityImageAsset(post.cardImage) ? (
         <div className="aspect-video overflow-hidden bg-[#F5F3EE]">
-          <img
+          <Image
             src={cardImageUrl}
             alt={post.title}
+            width={960}
+            height={540}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
         </div>
