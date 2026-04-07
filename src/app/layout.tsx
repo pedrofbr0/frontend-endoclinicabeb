@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
       width: 128,
       height: 128,
       fit: 'max',
-    }) || '/favicon-blue-background.png'
+    }) || '/favicon.png'
   const socialImage =
     getSanityImageUrl(siteSettings.logo, {
       width: 1200,
