@@ -7,12 +7,12 @@ import {Specialties} from './components/Specialties'
 import {Team} from './components/Team'
 import {ValueProposition} from './components/ValueProposition'
 import {getDoctorProfiles, getLatestPosts, getSiteShellData} from '../lib/sanity.server'
-import {buildAbsoluteUrl, getSanityImageUrl} from '../lib/sanity'
+import {buildAbsoluteUrl, getSanityImageUrl, getSiteUrl} from '../lib/sanity'
 
 export const metadata: Metadata = {
   title: 'Endocrinologia de Alto Padrão',
   description:
-    'Atendimento em endocrinologia com foco em emagrecimento, diabetes, reposição hormonal, tireoide e metabolismo ósseo.',
+    'EndoClínica B&B — atendimento em endocrinologia com foco em emagrecimento, diabetes, reposição hormonal, tireoide e metabolismo ósseo. Conheça nossa equipe médica especializada.',
   alternates: {
     canonical: buildAbsoluteUrl('/'),
   },
@@ -28,8 +28,35 @@ export default async function HomePage() {
     fit: 'crop',
   })
 
+  const physicianSchemas = doctorProfiles.map((doctor) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Physician',
+    name: doctor.name,
+    ...(doctor.specialty ? {medicalSpecialty: doctor.specialty} : {}),
+    ...(doctor.education ? {alumniOf: doctor.education} : {}),
+    ...(doctor.licenseNumber
+      ? {identifier: {
+          '@type': 'PropertyValue',
+          name: 'CRM',
+          value: doctor.licenseNumber,
+        }}
+      : {}),
+    worksFor: {
+      '@type': 'MedicalBusiness',
+      name: 'EndoClínica B&B',
+      url: getSiteUrl(),
+    },
+  }))
+
   return (
     <main>
+      {physicianSchemas.map((schema, index) => (
+        <script
+          key={`physician-${index}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{__html: JSON.stringify(schema)}}
+        />
+      ))}
       <HashScrollHandler />
       <Hero heroImageUrl={heroImageUrl} />
       <ValueProposition />

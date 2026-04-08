@@ -71,6 +71,20 @@ export default async function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'MedicalBusiness',
     name: 'EndoClínica B&B',
+    alternateName: [
+      'EndoClinica B&B',
+      'EndoClínica BeB',
+      'EndoClinica BeB',
+      'Clínica de Endocrinologia B&B',
+      'Clinica de Endocrinologia B&B',
+      'Clínica de Endocrinologia BeB',
+      'Clinica de Endocrinologia BeB',
+      'Clínica de Endocrinologia',
+      'Clínica B&B',
+      'Clinica B&B',
+      'Clínica BeB',
+      'Clinica BeB',
+    ],
     url: getSiteUrl(),
     description:
       'Clínica de endocrinologia com foco em emagrecimento, diabetes, reposição hormonal, tireoide e metabolismo ósseo.',
@@ -104,6 +118,18 @@ export default async function RootLayout({
         }
       : {}),
     sameAs: [contactInfo?.instagram, contactInfo?.facebook, contactInfo?.linkedin].filter(Boolean),
+    member: doctorProfiles.map((doctor) => ({
+      '@type': 'Physician',
+      name: doctor.name,
+      ...(doctor.specialty ? {medicalSpecialty: doctor.specialty} : {}),
+      ...(doctor.licenseNumber
+        ? {identifier: {
+            '@type': 'PropertyValue',
+            name: 'CRM',
+            value: doctor.licenseNumber,
+          }}
+        : {}),
+    })),
   }
 
   return (
