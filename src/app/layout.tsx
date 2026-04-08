@@ -16,13 +16,20 @@ export async function generateMetadata(): Promise<Metadata> {
       width: 128,
       height: 128,
       fit: 'max',
+      format: 'png',
     }) || '/favicon.png'
   const socialImage =
+    getSanityImageUrl(siteSettings.heroImage, {
+      width: 1200,
+      height: 630,
+      fit: 'crop',
+    }) ||
     getSanityImageUrl(siteSettings.logo, {
       width: 1200,
       height: 630,
       fit: 'max',
-    }) || '/logo-beb.png'
+    }) ||
+    '/logo-beb.png'
 
   return {
     metadataBase: new URL(getSiteUrl()),

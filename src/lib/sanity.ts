@@ -48,13 +48,16 @@ export function getSanityImageUrl(
     width?: number
     height?: number
     fit?: 'crop' | 'max'
+    format?: 'png' | 'jpg' | 'webp'
   },
 ) {
   if (!hasSanityImageAsset(source)) {
     return ''
   }
 
-  let builder = urlFor(source).auto('format')
+  let builder = options?.format
+    ? urlFor(source).format(options.format)
+    : urlFor(source).auto('format')
 
   if (options?.width) {
     builder = builder.width(options.width)
