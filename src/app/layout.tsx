@@ -13,8 +13,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = (await getSiteSettings()) || {}
   const faviconUrl =
     getSanityImageUrl(siteSettings.favicon, {
-      width: 128,
-      height: 128,
+      width: 64,
+      height: 64,
       fit: 'max',
       format: 'png',
     }) || '/favicon.png'
