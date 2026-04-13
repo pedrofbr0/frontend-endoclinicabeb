@@ -57,6 +57,9 @@ export async function generateMetadata(): Promise<Metadata> {
     verification: {
       google: 'Fh45CElT353VdDEbTmpra9w33LF7tp8OTdnnuENEoTQ',
     },
+    other: {
+      'google-adsense-account': 'ca-pub-8890711182070821',
+    },
   }
 }
 
