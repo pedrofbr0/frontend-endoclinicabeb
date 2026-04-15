@@ -1,5 +1,6 @@
 import type {Metadata} from 'next'
 import type {ReactNode} from 'react'
+import {GoogleTagManager} from '@next/third-parties/google'
 import '../styles/index.css'
 import {Footer} from './components/Footer'
 import {FloatingWhatsApp} from './components/FloatingWhatsApp'
@@ -145,6 +146,7 @@ export default async function RootLayout({
   return (
     <html lang="pt-BR">
       <body>
+        <GoogleTagManager gtmId="GTM-MLCVGCRD" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{__html: JSON.stringify(organizationSchema)}}
