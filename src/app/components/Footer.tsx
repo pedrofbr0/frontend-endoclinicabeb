@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import {Heart, MapPin, Phone} from 'lucide-react'
+import {Heart, Mail, MapPin, Phone} from 'lucide-react'
 import type {ContactInfo, DoctorProfile} from '../../lib/sanity'
 import {SectionNavLink} from './SectionNavLink'
 
@@ -167,6 +167,16 @@ export function Footer({contactInfo, doctorProfiles, hasBlogPosts, logoUrl}: Foo
                 </li>
               </ul>
             ) : null}
+
+            {contactInfo?.email ? (
+            <a
+              href={`mailto:${contactInfo.email}`}
+              className="hidden md:flex items-center gap-2 hover:text-[#C9A962] transition-colors"
+            >
+              <Mail className="w-3.5 h-3.5" />
+              <span>{contactInfo.email}</span>
+            </a>
+          ) : null}
 
             {contactInfo?.businessHours?.length ? (
               <div className="mt-6">
