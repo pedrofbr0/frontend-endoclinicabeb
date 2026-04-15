@@ -169,13 +169,17 @@ export function Footer({contactInfo, doctorProfiles, hasBlogPosts, logoUrl}: Foo
             ) : null}
 
             {contactInfo?.email ? (
-            <a
-              href={`mailto:${contactInfo.email}`}
-              className="hidden md:flex items-center gap-2 hover:text-[#C9A962] transition-colors"
-            >
-              <Mail className="w-3.5 h-3.5" />
-              <span>{contactInfo.email}</span>
-            </a>
+              <ul className="space-y-3 text-white/80 text-sm">
+                <li className="flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-[#C9A962]" />
+                  <a
+                    href={`mailto:${contactInfo.email}`}
+                    className="hover:text-[#C9A962] transition-colors"
+                  >
+                    {contactInfo.email}
+                  </a>
+                </li>
+              </ul>
           ) : null}
 
             {contactInfo?.businessHours?.length ? (
